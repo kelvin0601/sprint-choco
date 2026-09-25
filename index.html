@@ -351,7 +351,7 @@
         <h1 data-i18n="heroTitle">Webflow → Next.js, QA và live dần theo từng page</h1>
         <p data-i18n="heroDesc">Homepage được làm trước. Hai tháng đầu hoàn thiện staging theo Webflow live tại ngày bắt đầu từng page; hai tháng sau user QA, đồng bộ delta và route từng page family qua Cloudflare.</p>
         <div class="hero-meta">
-          <span class="pill" data-i18n="heroStart">Bắt đầu: Thứ Hai, 28/09/2026</span>
+          <span class="pill" data-i18n="heroStart">Bắt đầu: Thứ Hai, 21/09/2026</span>
           <span class="pill" data-i18n="heroEnd">Kết thúc mục tiêu: Thứ Sáu, 15/01/2027</span>
           <span class="pill">Mon–Fri · Asia/Ho_Chi_Minh</span>
         </div>
@@ -392,8 +392,8 @@
           </div>
         </div>
         <div class="stats">
-          <div class="stat"><b>16</b><span data-i18n="totalWeeks">Tổng số tuần</span></div>
-          <div class="stat"><b>8</b><span data-i18n="phase1Weeks">Tuần Phase 1 · Development</span></div>
+          <div class="stat"><b>17</b><span data-i18n="totalWeeks">Tổng số tuần</span></div>
+          <div class="stat"><b>9</b><span data-i18n="phase1Weeks">Tuần Phase 1 · Development</span></div>
           <div class="stat"><b>8</b><span data-i18n="phase2Weeks">Tuần Phase 2 · QA &amp; rollout</span></div>
           <div class="stat"><b>1</b><span data-i18n="weeklyReviewStart">Weekly review vào đầu mỗi tuần</span></div>
         </div>
@@ -402,8 +402,8 @@
       <section id="timeline">
         <div class="section-head">
           <div>
-            <h2 data-i18n="timelineTitle">Timeline 8 sprint</h2>
-            <p class="sub" data-i18n="timelineSub">Mỗi sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.</p>
+            <h2 data-i18n="timelineTitle">Timeline 9 sprint</h2>
+            <p class="sub" data-i18n="timelineSub">Đa số các sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.</p>
           </div>
         </div>
         <div class="weekly-rhythm">
@@ -485,7 +485,7 @@
           skipLink: "Bỏ qua đến timeline",
           heroTitle: "Webflow → Next.js, QA và live dần theo từng page",
           heroDesc: "Homepage được làm trước. Hai tháng đầu hoàn thiện staging theo Webflow live tại ngày bắt đầu từng page; hai tháng sau user QA, đồng bộ delta và route từng page family qua Cloudflare.",
-          heroStart: "Bắt đầu: Thứ Hai, 28/09/2026",
+          heroStart: "Bắt đầu: Thứ Hai, 21/09/2026",
           heroEnd: "Kết thúc mục tiêu: Thứ Sáu, 15/01/2027",
           heroNoHK: "Không dùng HK Simplified Chinese",
           navAssumptions: "Giả định",
@@ -500,8 +500,8 @@
           phase1Weeks: "Tuần Phase 1 · Development",
           phase2Weeks: "Tuần Phase 2 · QA & rollout",
           weeklyReviewStart: "Weekly review vào đầu mỗi tuần",
-          timelineTitle: "Timeline 8 sprint",
-          timelineSub: "Mỗi sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.",
+          timelineTitle: "Timeline 9 sprint",
+          timelineSub: "Đa số các sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.",
           weeklyReviewH: "Weekly review vào đầu tuần",
           weeklyReviewP: "Tuần 1 dùng để kickoff; từ Tuần 2, mỗi sáng Thứ Hai review tuần trước đã làm được gì, demo staging, chốt carry-over/blocker và xác nhận scope tuần mới.",
           releaseTitle: "Phase 2: page nào QA và live ở sprint nào?",
@@ -536,7 +536,7 @@
           skipLink: "Skip to timeline",
           heroTitle: "Webflow → Next.js, QA and gradual live rollout per page",
           heroDesc: "Homepage is built first. First two months to complete staging based on Webflow live at the start date of each page; next two months for user QA, delta sync and routing each page family via Cloudflare.",
-          heroStart: "Start: Monday, Sep 28, 2026",
+          heroStart: "Start: Monday, Sep 21, 2026",
           heroEnd: "Target End: Friday, Jan 15, 2027",
           heroNoHK: "HK Simplified Chinese excluded",
           navAssumptions: "Assumptions",
@@ -551,8 +551,8 @@
           phase1Weeks: "Weeks Phase 1 · Development",
           phase2Weeks: "Weeks Phase 2 · QA & rollout",
           weeklyReviewStart: "Weekly review at start of each week",
-          timelineTitle: "8-sprint Timeline",
-          timelineSub: "Each sprint has 2 weeks; each week has specific scope for review and reporting.",
+          timelineTitle: "9-sprint Timeline",
+          timelineSub: "Most sprints have 2 weeks; each week has specific scope for review and reporting.",
           weeklyReviewH: "Weekly review early week",
           weeklyReviewP: "Week 1 for kickoff; from Week 2, every Monday morning review past week's work, demo staging, finalize carry-over/blocker and confirm new week scope.",
           releaseTitle: "Phase 2: which pages QA and live in which sprint?",
@@ -607,12 +607,20 @@
     <script>
       const sprints = [
         {
+          no: 0, phase: "dev", dates: "21/09–25/09/2026",
+          title: { vi: "Kickoff & Setup", en: "Kickoff & Setup" },
+          description: { vi: "Sprint 0: Chuẩn bị nền móng cho dự án.", en: "Sprint 0: Laying the foundation for the project." },
+          weeks: [
+            { label: { vi: "Tuần 1", en: "Week 1" }, dates: "21/09–25/09", work: { vi: "Khởi tạo project, complete structure, global header/footer.", en: "Project setup, complete structure, global header/footer." } }
+          ]
+        },
+        {
           no: 1, phase: "dev", dates: "28/09–09/10/2026",
           title: { vi: "Homepage tất cả market", en: "Homepage all markets" },
-          description: { vi: "Capture Webflow live ngày bắt đầu và hoàn thiện Homepage SG, HK EN, HK ZH-Hant, UAE EN, UAE AR trên staging.", en: "Capture Webflow live on start date and complete Homepage SG, HK EN, HK ZH-Hant, UAE EN, UAE AR on staging." },
+          description: { vi: "Capture Webflow live ngày bắt đầu và hoàn thiện Homepage trên staging.", en: "Capture Webflow live on start date and complete Homepage on staging." },
           weeks: [
-            { label: { vi: "Tuần 1", en: "Week 1" }, dates: "28/09–02/10", work: { vi: "Capture Homepage Webflow live; hoàn thiện structure, global header/footer và Homepage SG.", en: "Capture Homepage Webflow live; complete structure, global header/footer and Homepage SG." } },
-            { label: { vi: "Tuần 2", en: "Week 2" }, dates: "05/10–09/10", work: { vi: "Hoàn thiện Homepage HK/UAE, localization, Arabic RTL, responsive và staging review.", en: "Complete Homepage HK/UAE, localization, Arabic RTL, responsive and staging review." } }
+            { label: { vi: "Tuần 2", en: "Week 2" }, dates: "28/09–02/10", work: { vi: "Capture Homepage Webflow live và hoàn thiện Homepage SG.", en: "Capture Homepage Webflow live and complete Homepage SG." } },
+            { label: { vi: "Tuần 3", en: "Week 3" }, dates: "05/10–09/10", work: { vi: "Hoàn thiện Homepage HK/UAE, localization, Arabic RTL, responsive và staging review.", en: "Complete Homepage HK/UAE, localization, Arabic RTL, responsive and staging review." } }
           ]
         },
         {
@@ -620,8 +628,8 @@
           title: { vi: "Page Template và core pages", en: "Page Template and core pages" },
           description: { vi: "Xây reusable templates rồi áp dụng cho About Us, How It Works, Contact Us và FAQs. Baseline lấy theo ngày bắt đầu từng page.", en: "Build reusable templates then apply for About Us, How It Works, Contact Us and FAQs. Baseline based on start date of each page." },
           weeks: [
-            { label: { vi: "Tuần 3", en: "Week 3" }, dates: "12/10–16/10", work: { vi: "Xây Page Template reusable; áp dụng cho About Us và Contact Us trên tất cả market áp dụng.", en: "Build reusable Page Template; apply for About Us and Contact Us on all applicable markets." } },
-            { label: { vi: "Tuần 4", en: "Week 4" }, dates: "19/10–23/10", work: { vi: "Hoàn thiện How It Works và FAQs; kiểm tra deep link, form và localized content.", en: "Complete How It Works and FAQs; check deep links, forms and localized content." } }
+            { label: { vi: "Tuần 4", en: "Week 4" }, dates: "12/10–16/10", work: { vi: "Xây Page Template reusable; áp dụng cho About Us và Contact Us trên tất cả market áp dụng.", en: "Build reusable Page Template; apply for About Us and Contact Us on all applicable markets." } },
+            { label: { vi: "Tuần 5", en: "Week 5" }, dates: "19/10–23/10", work: { vi: "Hoàn thiện How It Works và FAQs; kiểm tra deep link, form và localized content.", en: "Complete How It Works and FAQs; check deep links, forms and localized content." } }
           ]
         },
         {
@@ -629,8 +637,8 @@
           title: { vi: "Content và product pages", en: "Content and product pages" },
           description: { vi: "Blog, Blog Detail, Author, Visa Card, Boost with USD, USD Waitlist, FX Guarantee Fee, Media và Customer Stories.", en: "Blog, Blog Detail, Author, Visa Card, Boost with USD, USD Waitlist, FX Guarantee Fee, Media and Customer Stories." },
           weeks: [
-            { label: { vi: "Tuần 5", en: "Week 5" }, dates: "26/10–30/10", work: { vi: "Hoàn thiện Blog listing, Blog detail, Author và content migration structure.", en: "Complete Blog listing, Blog detail, Author and content migration structure." } },
-            { label: { vi: "Tuần 6", en: "Week 6" }, dates: "02/11–06/11", work: { vi: "Hoàn thiện Visa, Boost USD, USD Waitlist, FX Fee, Media và Customer Stories.", en: "Complete Visa, Boost USD, USD Waitlist, FX Fee, Media and Customer Stories." } }
+            { label: { vi: "Tuần 6", en: "Week 6" }, dates: "26/10–30/10", work: { vi: "Hoàn thiện Blog listing, Blog detail, Author và content migration structure.", en: "Complete Blog listing, Blog detail, Author and content migration structure." } },
+            { label: { vi: "Tuần 7", en: "Week 7" }, dates: "02/11–06/11", work: { vi: "Hoàn thiện Visa, Boost USD, USD Waitlist, FX Fee, Media và Customer Stories.", en: "Complete Visa, Boost USD, USD Waitlist, FX Fee, Media and Customer Stories." } }
           ]
         },
         {
@@ -638,8 +646,8 @@
           title: { vi: "Long-tail và staging completion", en: "Long-tail and staging completion" },
           description: { vi: "Legal, campaign, documents, press statement, content migration, SEO, accessibility và full staging regression.", en: "Legal, campaign, documents, press statement, content migration, SEO, accessibility and full staging regression." },
           weeks: [
-            { label: { vi: "Tuần 7", en: "Week 7" }, dates: "09/11–13/11", work: { vi: "Hoàn thiện Legal, campaign, documents và Press Statement theo Webflow live.", en: "Complete Legal, campaign, documents and Press Statement based on Webflow live." } },
-            { label: { vi: "Tuần 8", en: "Week 8" }, dates: "16/11–20/11", work: { vi: "Content migration, SEO, accessibility, full staging regression và chốt feature complete.", en: "Content migration, SEO, accessibility, full staging regression and sign off feature complete." } }
+            { label: { vi: "Tuần 8", en: "Week 8" }, dates: "09/11–13/11", work: { vi: "Hoàn thiện Legal, campaign, documents và Press Statement theo Webflow live.", en: "Complete Legal, campaign, documents and Press Statement based on Webflow live." } },
+            { label: { vi: "Tuần 9", en: "Week 9" }, dates: "16/11–20/11", work: { vi: "Content migration, SEO, accessibility, full staging regression và chốt feature complete.", en: "Content migration, SEO, accessibility, full staging regression and sign off feature complete." } }
           ]
         },
         {
@@ -647,8 +655,8 @@
           title: { vi: "QA & live: Homepage, About Us", en: "QA & live: Homepage, About Us" },
           description: { vi: "Sync latest Webflow, user QA toàn market, fix và route Homepage trước; About Us live sau khi đạt cùng gate.", en: "Sync latest Webflow, user QA all markets, fix and route Homepage first; About Us live after passing same gates." },
           weeks: [
-            { label: { vi: "Tuần 9", en: "Week 9" }, dates: "23/11–27/11", work: { vi: "Sync Homepage với Webflow latest; user QA tất cả market, fix và regression.", en: "Sync Homepage with latest Webflow; user QA all markets, fix and regression." } },
-            { label: { vi: "Tuần 10", en: "Week 10" }, dates: "30/11–04/12", work: { vi: "Live Homepage; QA/fix About Us và live sau khi được approved.", en: "Live Homepage; QA/fix About Us and live after approved." } }
+            { label: { vi: "Tuần 10", en: "Week 10" }, dates: "23/11–27/11", work: { vi: "Sync Homepage với Webflow latest; user QA tất cả market, fix và regression.", en: "Sync Homepage with latest Webflow; user QA all markets, fix and regression." } },
+            { label: { vi: "Tuần 11", en: "Week 11" }, dates: "30/11–04/12", work: { vi: "Live Homepage; QA/fix About Us và live sau khi được approved.", en: "Live Homepage; QA/fix About Us and live after approved." } }
           ]
         },
         {
@@ -656,8 +664,8 @@
           title: { vi: "QA & live: Core pages", en: "QA & live: Core pages" },
           description: { vi: "Contact Us, FAQs và How It Works lần lượt qua latest sync, QA, fix, sign-off và Cloudflare routing.", en: "Contact Us, FAQs and How It Works go through latest sync, QA, fix, sign-off and Cloudflare routing respectively." },
           weeks: [
-            { label: { vi: "Tuần 11", en: "Week 11" }, dates: "07/12–11/12", work: { vi: "QA/fix Contact Us và live; bắt đầu latest sync và QA FAQs.", en: "QA/fix Contact Us and live; start latest sync and QA FAQs." } },
-            { label: { vi: "Tuần 12", en: "Week 12" }, dates: "14/12–18/12", work: { vi: "Live FAQs; QA/fix How It Works và route sang Next sau approval.", en: "Live FAQs; QA/fix How It Works and route to Next after approval." } }
+            { label: { vi: "Tuần 12", en: "Week 12" }, dates: "07/12–11/12", work: { vi: "QA/fix Contact Us và live; bắt đầu latest sync và QA FAQs.", en: "QA/fix Contact Us and live; start latest sync and QA FAQs." } },
+            { label: { vi: "Tuần 13", en: "Week 13" }, dates: "14/12–18/12", work: { vi: "Live FAQs; QA/fix How It Works và route sang Next sau approval.", en: "Live FAQs; QA/fix How It Works and route to Next after approval." } }
           ]
         },
         {
@@ -665,8 +673,8 @@
           title: { vi: "QA & live: Blog, product và media", en: "QA & live: Blog, product and media" },
           description: { vi: "QA và live Blog/Author, product pages, Media và Customer Stories lần lượt ngay khi từng page family được approved.", en: "QA and live Blog/Author, product pages, Media and Customer Stories respectively as soon as each page family is approved." },
           weeks: [
-            { label: { vi: "Tuần 13", en: "Week 13" }, dates: "21/12–25/12", work: { vi: "QA/fix và live Blog, Blog Detail, Author; tiếp tục QA product pages.", en: "QA/fix and live Blog, Blog Detail, Author; continue QA product pages." } },
-            { label: { vi: "Tuần 14", en: "Week 14" }, dates: "28/12–01/01", work: { vi: "Live product pages; QA/fix và live Media, Customer Stories, Press.", en: "Live product pages; QA/fix and live Media, Customer Stories, Press." } }
+            { label: { vi: "Tuần 14", en: "Week 14" }, dates: "21/12–25/12", work: { vi: "QA/fix và live Blog, Blog Detail, Author; tiếp tục QA product pages.", en: "QA/fix and live Blog, Blog Detail, Author; continue QA product pages." } },
+            { label: { vi: "Tuần 15", en: "Week 15" }, dates: "28/12–01/01", work: { vi: "Live product pages; QA/fix và live Media, Customer Stories, Press.", en: "Live product pages; QA/fix and live Media, Customer Stories, Press." } }
           ]
         },
         {
@@ -674,8 +682,8 @@
           title: { vi: "Long-tail, carry-over và handover", en: "Long-tail, carry-over and handover" },
           description: { vi: "QA và live legal/campaign/documents, xử lý page còn tồn từ sprint trước và audit toàn bộ routing.", en: "QA and live legal/campaign/documents, handle carry-over pages and audit all routing." },
           weeks: [
-            { label: { vi: "Tuần 15", en: "Week 15" }, dates: "04/01–08/01", work: { vi: "Latest sync và user QA Legal, campaigns, documents; xử lý carry-over còn lại.", en: "Latest sync and user QA Legal, campaigns, documents; handle remaining carry-over." } },
-            { label: { vi: "Tuần 16", en: "Week 16" }, dates: "11/01–15/01", work: { vi: "Live long-tail pages, audit Cloudflare/SEO/analytics và hoàn tất handover.", en: "Live long-tail pages, audit Cloudflare/SEO/analytics and complete handover." } }
+            { label: { vi: "Tuần 16", en: "Week 16" }, dates: "04/01–08/01", work: { vi: "Latest sync và user QA Legal, campaigns, documents; xử lý carry-over còn lại.", en: "Latest sync and user QA Legal, campaigns, documents; handle remaining carry-over." } },
+            { label: { vi: "Tuần 17", en: "Week 17" }, dates: "11/01–15/01", work: { vi: "Live long-tail pages, audit Cloudflare/SEO/analytics và hoàn tất handover.", en: "Live long-tail pages, audit Cloudflare/SEO/analytics and complete handover." } }
           ]
         }
       ];
@@ -698,7 +706,7 @@
           label: "Phase 1",
           title: { vi: "Hoàn thành toàn bộ website trên Next staging", en: "Complete entire website on Next staging" },
           summary: { vi: "Xây Homepage trước, sau đó hoàn thiện Page Template và tất cả page còn lại. Mỗi page bám theo Webflow live tại ngày bắt đầu làm, đủ các market áp dụng và chưa thay đổi production routing.", en: "Build Homepage first, then complete Page Template and all remaining pages. Each page follows Webflow live at start date, includes all applicable markets and keeps production routing unchanged." },
-          dates: "28/09–20/11/2026 · Sprint 1–4"
+          dates: "21/09–20/11/2026 · Sprint 1–4"
         },
         qa: {
           label: "Phase 2",
@@ -729,7 +737,7 @@
               <div class="sprint-number">Sprint ${sprint.no}</div>
               <div class="sprint-date">${sprint.dates}</div>
             </div>
-            <div class="days"><b>2</b><span>${i18n[currentLang].wordWeeks}</span></div>
+            <div class="days"><b>${sprint.weeks.length}</b><span>${i18n[currentLang].wordWeeks}</span></div>
             <div class="sprint-main">
               <h3>${sprint.title[currentLang] || sprint.title}</h3>
               <p>${sprint.description[currentLang] || sprint.description}</p>
