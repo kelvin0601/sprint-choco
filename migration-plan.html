@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chocolate Finance — Next.js Migration Plan</title>
+    <style>
+      :root {
+        --ruby: #e42082;
+        --ruby-dark: #bd0c65;
+        --choco: #3d1912;
+        --choco-deep: #1b0e0c;
+        --brown: #701d1b;
+        --gold: #ba894f;
+        --cream: #fffaf4;
+        --peach: #fbeddf;
+        --white: #ffffff;
+        --ink: #2b211f;
+        --muted: #726764;
+        --line: #e4d8d0;
+        --green: #217a51;
+        --green-bg: #eaf7f0;
+        --amber: #9b5a00;
+        --amber-bg: #fff4d8;
+        --blue: #245ea9;
+        --blue-bg: #eaf2ff;
+        --shadow: 0 18px 60px rgba(61, 25, 18, 0.1);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--cream);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+      a { color: inherit; }
+      button { font: inherit; }
+      .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+      .hero {
+        color: var(--white);
+        background:
+          radial-gradient(circle at 82% 12%, rgba(228, 32, 130, 0.42), transparent 31%),
+          linear-gradient(140deg, var(--choco-deep), var(--choco));
+        padding: 46px 0 38px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border: 1px solid rgba(255,255,255,.22);
+        border-radius: 999px;
+        color: #f1cda7;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      h1 { max-width: 900px; margin: 16px 0 12px; font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -.04em; }
+      .hero p { max-width: 760px; margin: 0; color: rgba(255,255,255,.78); font-size: 18px; }
+      .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .pill { padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,.1); font-size: 13px; }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255,250,244,.92);
+        backdrop-filter: blur(14px);
+      }
+      .topbar-inner { display: flex; justify-content: space-between; align-items: center; min-height: 60px; gap: 18px; }
+      .brand { font-weight: 900; color: var(--choco); }
+      nav { display: flex; flex-wrap: wrap; gap: 6px; }
+      nav a { padding: 8px 10px; border-radius: 8px; color: var(--muted); font-size: 13px; font-weight: 700; text-decoration: none; }
+      nav a:hover { color: var(--ruby); background: var(--white); }
+      main { padding: 30px 0 72px; }
+      section { scroll-margin-top: 78px; margin-bottom: 42px; }
+      .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+      h2 { margin: 0; color: var(--choco); font-size: clamp(27px, 4vw, 42px); line-height: 1.12; letter-spacing: -.03em; }
+      h3 { margin: 0 0 8px; color: var(--choco); font-size: 20px; line-height: 1.25; }
+      .sub { margin: 7px 0 0; color: var(--muted); }
+      .callout {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid #eed08e;
+        border-radius: 16px;
+        background: var(--amber-bg);
+      }
+      .callout strong { color: var(--amber); }
+      .callout p { margin: 3px 0 0; color: #694a19; }
+      .icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--white); }
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+      .stat, .card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--white);
+        box-shadow: 0 6px 24px rgba(61,25,18,.04);
+      }
+      .stat { padding: 20px; }
+      .stat b { display: block; color: var(--choco); font-size: 30px; line-height: 1; }
+      .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
+      .timeline-groups { display: grid; gap: 34px; }
+      .timeline-group { display: grid; gap: 16px; margin-bottom: 0; }
+      .timeline-group-head {
+        position: relative;
+        overflow: hidden;
+        padding: 28px 32px 30px;
+        border-radius: 24px;
+      }
+      .timeline-group-head > * { position: relative; z-index: 1; }
+      .timeline-group-head::after {
+        position: absolute;
+        right: 24px;
+        top: 50%;
+        translate: 0 -52%;
+        font-size: clamp(110px, 13vw, 180px);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -.08em;
+        pointer-events: none;
+        opacity: .07;
+      }
+      .timeline-group.dev .timeline-group-head {
+        background: linear-gradient(125deg, #f4e1c7 0%, #fff7ec 68%, #ffffff 100%);
+      }
+      .timeline-group.dev .timeline-group-head::after { content: "01"; color: var(--brown); }
+      .timeline-group.qa .timeline-group-head {
+        background: linear-gradient(125deg, #f9d9e9 0%, #fff0f7 68%, #ffffff 100%);
+      }
+      .timeline-group.qa .timeline-group-head::after { content: "02"; color: var(--ruby); }
+      .phase-index {
+        display: inline-flex;
+        align-items: center;
+        min-width: 0;
+        min-height: 0;
+        margin-bottom: 14px;
+        padding: 7px 11px;
+        border: 1px solid rgba(61,25,18,.12);
+        border-radius: 999px;
+        color: var(--brown);
+        background: rgba(255,255,255,.6);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: .1em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .timeline-group.qa .phase-index { border-color: rgba(228,32,130,.18); color: var(--ruby-dark); }
+      .timeline-group-title { max-width: 850px; margin: 0 0 8px; color: var(--choco); font-size: clamp(25px, 3vw, 34px); letter-spacing: -.025em; }
+      .timeline-group-summary { max-width: 920px; margin: 0; color: var(--muted); font-size: 15px; }
+      .timeline-group-dates {
+        display: inline-flex;
+        margin-top: 16px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        color: var(--brown);
+        background: rgba(255,255,255,.62);
+        font-size: 12px;
+        font-weight: 850;
+      }
+      .timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .sprint {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: start;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--white);
+        box-shadow: 0 6px 24px rgba(61,25,18,.04);
+      }
+      .sprint.dev { border-left: 5px solid var(--gold); }
+      .sprint.qa { border-left: 5px solid var(--ruby); }
+      .sprint-main { grid-column: 1 / -1; }
+      .sprint-number { color: var(--ruby); font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+      .sprint-date { margin-top: 4px; color: var(--choco); font-weight: 800; }
+      .sprint h3 { margin-bottom: 5px; }
+      .sprint p { margin: 0; color: var(--muted); }
+      .week-list { display: grid; gap: 9px; margin-top: 16px; }
+      .week-row {
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+        gap: 13px;
+        padding: 12px;
+        border-radius: 12px;
+        background: var(--cream);
+      }
+      .week-label { color: var(--brown); font-size: 12px; font-weight: 900; }
+      .week-label span { display: block; margin-top: 2px; color: var(--muted); font-weight: 650; }
+      .week-work { color: var(--ink); font-size: 13px; line-height: 1.5; }
+      .days { padding: 7px 10px; border-radius: 10px; background: var(--cream); text-align: right; white-space: nowrap; }
+      .days b { display: inline; color: var(--choco); font-size: 18px; line-height: 1; }
+      .days span { margin-left: 3px; color: var(--muted); font-size: 11px; }
+      .weekly-rhythm {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 22px;
+        padding: 16px 18px;
+        border: 1px solid rgba(228,32,130,.16);
+        border-radius: 16px;
+        background: #fff2f8;
+      }
+      .weekly-rhythm-number {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        color: var(--white);
+        background: var(--ruby);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+      .weekly-rhythm b { display: block; color: var(--choco); }
+      .weekly-rhythm span { color: var(--muted); font-size: 13px; }
+      .table-wrap { overflow-x: auto; overflow-y: visible; border: 1px solid var(--line); border-radius: 18px; background: var(--white); }
+      table { width: 100%; border-collapse: collapse; min-width: 900px; }
+      th, td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { color: var(--choco); background: #f9efe7; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+      tr:last-child td { border-bottom: 0; }
+      td { font-size: 14px; }
+      .status { display: inline-flex; padding: 4px 8px; border-radius: 999px; font-size: 11px; font-weight: 900; white-space: nowrap; }
+      .status.build { color: var(--blue); background: var(--blue-bg); }
+      .status.qa { color: var(--amber); background: var(--amber-bg); }
+      .status.live { color: var(--green); background: var(--green-bg); }
+      .release-tools { display: grid; grid-template-columns: minmax(220px, 1fr) auto; gap: 12px; margin-bottom: 14px; }
+      .search {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        color: var(--ink);
+        background: var(--white);
+        outline: none;
+      }
+      .search:focus { border-color: var(--ruby); box-shadow: 0 0 0 3px rgba(228,32,130,.12); }
+      .release-count { align-self: center; color: var(--muted); font-size: 13px; white-space: nowrap; }
+      .release-cards { display: none; gap: 12px; }
+      .release-card { padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+      .release-card-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+      .release-card dl { display: grid; grid-template-columns: 100px 1fr; gap: 7px 10px; margin: 14px 0 0; }
+      .release-card dt { color: var(--muted); font-size: 12px; }
+      .release-card dd { margin: 0; font-size: 13px; font-weight: 700; }
+      .empty { display: none; padding: 28px; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); background: var(--white); text-align: center; }
+      .flow {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 24px;
+        overflow: hidden;
+        padding: 30px 28px 28px;
+        border-radius: 24px;
+        color: var(--white);
+        background:
+          radial-gradient(circle at 95% 0%, rgba(228,32,130,.26), transparent 30%),
+          linear-gradient(135deg, var(--choco-deep), var(--choco));
+        box-shadow: var(--shadow);
+      }
+      .flow::before {
+        content: "";
+        position: absolute;
+        top: 49px;
+        left: 7%;
+        right: 7%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--gold), var(--ruby));
+        opacity: .75;
+      }
+      .flow-step { position: relative; z-index: 1; min-width: 0; }
+      .flow-step::before {
+        content: attr(data-step);
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 20px;
+        border: 5px solid var(--choco);
+        border-radius: 50%;
+        color: var(--choco);
+        background: var(--white);
+        box-shadow: 0 0 0 2px rgba(255,255,255,.18);
+        font-size: 13px;
+        font-weight: 900;
+      }
+      .flow-step b { display: block; margin-bottom: 7px; color: var(--white); font-size: 16px; }
+      .flow-step span { display: block; max-width: 185px; color: rgba(255,255,255,.67); font-size: 13px; line-height: 1.55; }
+      .note { margin-top: 16px; padding: 16px 18px; border-left: 4px solid var(--ruby); border-radius: 0 12px 12px 0; background: var(--white); color: var(--muted); }
+      .sources { display: flex; flex-wrap: wrap; gap: 9px; }
+      .sources a { padding: 8px 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--brown); font-size: 13px; font-weight: 750; text-decoration: none; }
+      footer { padding: 26px 0 40px; color: var(--muted); font-size: 13px; }
+      .print { padding: 9px 13px; border: 0; border-radius: 10px; color: var(--white); background: var(--ruby); cursor: pointer; font-weight: 800; }
+      .print:hover { background: var(--ruby-dark); }
+      .skip-link { position: fixed; left: 12px; top: -60px; z-index: 99; padding: 10px 14px; border-radius: 8px; color: var(--white); background: var(--choco); }
+      .skip-link:focus { top: 12px; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+      @media (max-width: 880px) {
+        .stats { grid-template-columns: 1fr 1fr; }
+        .timeline { grid-template-columns: 1fr; }
+        .sprint { grid-template-columns: minmax(0, 1fr) auto; }
+        .days { grid-column: auto; text-align: right; }
+        .flow { grid-template-columns: 1fr; gap: 0; padding: 24px; }
+        .flow::before { top: 44px; bottom: 44px; left: 43px; right: auto; width: 2px; height: auto; }
+        .flow-step { min-height: 98px; padding-left: 62px; }
+        .flow-step::before { position: absolute; left: 0; top: 0; margin: 0; border-color: var(--choco); }
+        .flow-step span { max-width: none; }
+      }
+      @media (max-width: 620px) {
+        .shell { width: min(100% - 22px, 1180px); }
+        .hero { padding: 46px 0 38px; }
+        .hero p { font-size: 16px; }
+        .topbar-inner { align-items: flex-start; flex-direction: column; padding: 11px 0; }
+        nav { display: none; }
+        .stats { grid-template-columns: 1fr; }
+        .sprint { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+        .week-row { grid-template-columns: 1fr; gap: 5px; }
+        .section-head { align-items: start; flex-direction: column; }
+        .timeline-group-head { padding: 22px; }
+        .timeline-group-head::after { right: 14px; font-size: 100px; }
+        .release-tools { grid-template-columns: 1fr; }
+        .table-wrap { display: none; }
+        .release-cards { display: grid; }
+      }
+      @media print {
+        .topbar, .print { display: none; }
+        body { background: var(--white); }
+        .hero { padding: 28px 0; }
+        main { padding-top: 24px; }
+        section { break-inside: avoid; }
+        .card, .stat, .sprint { box-shadow: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#timeline">Bỏ qua đến timeline</a>
+    <header class="hero">
+      <div class="shell">
+        <span class="eyebrow">Migration roadmap · v3</span>
+        <h1>Webflow → Next.js, QA và live dần theo từng page</h1>
+        <p>Homepage được làm trước. Hai tháng đầu hoàn thiện staging theo Webflow live tại ngày bắt đầu từng page; hai tháng sau user QA, đồng bộ delta và route từng page family qua Cloudflare.</p>
+        <div class="hero-meta">
+          <span class="pill">Bắt đầu: Thứ Hai, 28/09/2026</span>
+          <span class="pill">Kết thúc mục tiêu: Thứ Sáu, 15/01/2027</span>
+          <span class="pill">Mon–Fri · Asia/Ho_Chi_Minh</span>
+          <span class="pill">Không dùng HK Simplified Chinese</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="topbar">
+      <div class="shell topbar-inner">
+        <div class="brand">Chocolate Finance Migration</div>
+        <nav aria-label="Điều hướng tài liệu">
+          <a href="#assumptions">Giả định</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#release">QA &amp; Live</a>
+          <a href="#workflow">Release gate</a>
+        </nav>
+        <button class="print" type="button" onclick="window.print()">In / Xuất PDF</button>
+      </div>
+    </div>
+
+    <main class="shell">
+      <section id="assumptions">
+        <div class="section-head">
+          <div>
+            <h2>Giả định lập kế hoạch</h2>
+            <p class="sub">Sprint chạy theo lịch làm việc bình thường từ Thứ Hai đến Thứ Sáu.</p>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="icon">!</div>
+          <div>
+            <strong>Cách tính sprint</strong>
+            <p>Mỗi sprint kéo dài 2 tuần. Từng tuần có scope và đầu ra riêng để review vào đầu tuần kế tiếp.</p>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>16</b><span>Tổng số tuần</span></div>
+          <div class="stat"><b>8</b><span>Tuần Phase 1 · Development</span></div>
+          <div class="stat"><b>8</b><span>Tuần Phase 2 · QA &amp; rollout</span></div>
+          <div class="stat"><b>1</b><span>Weekly review vào đầu mỗi tuần</span></div>
+        </div>
+      </section>
+
+      <section id="timeline">
+        <div class="section-head">
+          <div>
+            <h2>Timeline 8 sprint</h2>
+            <p class="sub">Mỗi sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.</p>
+          </div>
+        </div>
+        <div class="weekly-rhythm">
+          <div class="weekly-rhythm-number">Mon</div>
+          <div>
+            <b>Weekly review vào đầu tuần</b>
+            <span>Tuần 1 dùng để kickoff; từ Tuần 2, mỗi sáng Thứ Hai review tuần trước đã làm được gì, demo staging, chốt carry-over/blocker và xác nhận scope tuần mới.</span>
+          </div>
+        </div>
+        <div class="timeline-groups" id="sprint-list"></div>
+      </section>
+
+      <section id="release">
+        <div class="section-head">
+          <div>
+            <h2>Phase 2: page nào QA và live ở sprint nào?</h2>
+            <p class="sub">Ngày live là target. Nếu chưa pass toàn bộ market, URL đó vẫn ở Webflow và carry-over sang sprint kế tiếp.</p>
+          </div>
+        </div>
+        <div class="release-tools">
+          <label>
+            <span class="sr-only">Tìm page hoặc sprint</span>
+            <input class="search" id="release-search" type="search" placeholder="Tìm page, sprint hoặc URL…" autocomplete="off" />
+          </label>
+          <span class="release-count" id="release-count" aria-live="polite"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sprint</th>
+                <th>Page family</th>
+                <th>QA window</th>
+                <th>Target live</th>
+                <th>Cloudflare scope</th>
+                <th>Trạng thái mục tiêu</th>
+              </tr>
+            </thead>
+            <tbody id="release-rows"></tbody>
+          </table>
+        </div>
+        <div class="release-cards" id="release-cards"></div>
+        <div class="empty" id="release-empty">Không tìm thấy page phù hợp.</div>
+        <div class="note"><strong>Nguyên tắc release:</strong> page nào hoàn thành latest sync, pass QA tất cả market và được approved thì live ngay trong sprint được phân công. Nếu chưa pass thì giữ ở Webflow và tiếp tục xử lý ở sprint sau.</div>
+      </section>
+
+      <section id="workflow">
+        <div class="section-head">
+          <div>
+            <h2>Gate bắt buộc cho từng page</h2>
+            <p class="sub">Một page family chỉ được route khi tất cả market bắt buộc đã pass.</p>
+          </div>
+        </div>
+        <div class="flow">
+          <div class="flow-step" data-step="01"><b>Latest sync</b><span>Đối chiếu Webflow live và cập nhật toàn bộ delta.</span></div>
+          <div class="flow-step" data-step="02"><b>User QA</b><span>Kiểm tra SG, HK EN, HK ZH-Hant, UAE EN và UAE AR.</span></div>
+          <div class="flow-step" data-step="03"><b>Fix &amp; re-QA</b><span>Đóng blocker, critical issue và chạy regression.</span></div>
+          <div class="flow-step" data-step="04"><b>Cloudflare route</b><span>Chuyển đúng page family từ Webflow sang Next.</span></div>
+          <div class="flow-step" data-step="05"><b>Monitor</b><span>Theo dõi 24 giờ và rollback riêng page khi cần.</span></div>
+        </div>
+      </section>
+
+      <section id="sources">
+        <div class="section-head"><div><h2>Nguồn kiểm tra</h2></div></div>
+        <div class="sources">
+          <a href="https://chocolatefinance.webflow.io/" target="_blank" rel="noreferrer">Webflow live</a>
+          <a href="https://chocolatefinance.webflow.io/sitemap.xml" target="_blank" rel="noreferrer">Webflow sitemap</a>
+          <a href="https://developers.cloudflare.com/rules/origin-rules/" target="_blank" rel="noreferrer">Cloudflare Origin Rules</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell">Plan version 3 · Lịch tính theo Asia/Ho_Chi_Minh · HK Simplified Chinese đã loại khỏi scope.</footer>
+
+    <script>
+      const sprints = [
+        {
+          no: 1,
+          phase: "dev",
+          dates: "28/09–09/10/2026",
+          title: "Homepage tất cả market",
+          description: "Capture Webflow live ngày bắt đầu và hoàn thiện Homepage SG, HK EN, HK ZH-Hant, UAE EN, UAE AR trên staging.",
+          weeks: [
+            { label: "Tuần 1", dates: "28/09–02/10", work: "Capture Homepage Webflow live; hoàn thiện structure, global header/footer và Homepage SG." },
+            { label: "Tuần 2", dates: "05/10–09/10", work: "Hoàn thiện Homepage HK/UAE, localization, Arabic RTL, responsive và staging review." }
+          ]
+        },
+        {
+          no: 2,
+          phase: "dev",
+          dates: "12/10–23/10/2026",
+          title: "Page Template và core pages",
+          description: "Xây reusable templates rồi áp dụng cho About Us, How It Works, Contact Us và FAQs. Baseline lấy theo ngày bắt đầu từng page.",
+          weeks: [
+            { label: "Tuần 3", dates: "12/10–16/10", work: "Xây Page Template reusable; áp dụng cho About Us và Contact Us trên tất cả market áp dụng." },
+            { label: "Tuần 4", dates: "19/10–23/10", work: "Hoàn thiện How It Works và FAQs; kiểm tra deep link, form và localized content." }
+          ]
+        },
+        {
+          no: 3,
+          phase: "dev",
+          dates: "26/10–06/11/2026",
+          title: "Content và product pages",
+          description: "Blog, Blog Detail, Author, Visa Card, Boost with USD, USD Waitlist, FX Guarantee Fee, Media và Customer Stories.",
+          weeks: [
+            { label: "Tuần 5", dates: "26/10–30/10", work: "Hoàn thiện Blog listing, Blog detail, Author và content migration structure." },
+            { label: "Tuần 6", dates: "02/11–06/11", work: "Hoàn thiện Visa, Boost USD, USD Waitlist, FX Fee, Media và Customer Stories." }
+          ]
+        },
+        {
+          no: 4,
+          phase: "dev",
+          dates: "09/11–20/11/2026",
+          title: "Long-tail và staging completion",
+          description: "Legal, campaign, documents, press statement, content migration, SEO, accessibility và full staging regression.",
+          weeks: [
+            { label: "Tuần 7", dates: "09/11–13/11", work: "Hoàn thiện Legal, campaign, documents và Press Statement theo Webflow live." },
+            { label: "Tuần 8", dates: "16/11–20/11", work: "Content migration, SEO, accessibility, full staging regression và chốt feature complete." }
+          ]
+        },
+        {
+          no: 5,
+          phase: "qa",
+          dates: "23/11–04/12/2026",
+          title: "QA & live: Homepage, About Us",
+          description: "Sync latest Webflow, user QA toàn market, fix và route Homepage trước; About Us live sau khi đạt cùng gate.",
+          weeks: [
+            { label: "Tuần 9", dates: "23/11–27/11", work: "Sync Homepage với Webflow latest; user QA tất cả market, fix và regression." },
+            { label: "Tuần 10", dates: "30/11–04/12", work: "Live Homepage; QA/fix About Us và live sau khi được approved." }
+          ]
+        },
+        {
+          no: 6,
+          phase: "qa",
+          dates: "07/12–18/12/2026",
+          title: "QA & live: Core pages",
+          description: "Contact Us, FAQs và How It Works lần lượt qua latest sync, QA, fix, sign-off và Cloudflare routing.",
+          weeks: [
+            { label: "Tuần 11", dates: "07/12–11/12", work: "QA/fix Contact Us và live; bắt đầu latest sync và QA FAQs." },
+            { label: "Tuần 12", dates: "14/12–18/12", work: "Live FAQs; QA/fix How It Works và route sang Next sau approval." }
+          ]
+        },
+        {
+          no: 7,
+          phase: "qa",
+          dates: "21/12/2026–01/01/2027",
+          title: "QA & live: Blog, product và media",
+          description: "QA và live Blog/Author, product pages, Media và Customer Stories lần lượt ngay khi từng page family được approved.",
+          weeks: [
+            { label: "Tuần 13", dates: "21/12–25/12", work: "QA/fix và live Blog, Blog Detail, Author; tiếp tục QA product pages." },
+            { label: "Tuần 14", dates: "28/12–01/01", work: "Live product pages; QA/fix và live Media, Customer Stories, Press." }
+          ]
+        },
+        {
+          no: 8,
+          phase: "qa",
+          dates: "04/01–15/01/2027",
+          title: "Long-tail, carry-over và handover",
+          description: "QA và live legal/campaign/documents, xử lý page còn tồn từ sprint trước và audit toàn bộ routing.",
+          weeks: [
+            { label: "Tuần 15", dates: "04/01–08/01", work: "Latest sync và user QA Legal, campaigns, documents; xử lý carry-over còn lại." },
+            { label: "Tuần 16", dates: "11/01–15/01", work: "Live long-tail pages, audit Cloudflare/SEO/analytics và hoàn tất handover." }
+          ]
+        }
+      ];
+
+      const releasePlan = [
+        ["S5", "Homepage · all markets", "23–30/11", "01/12", "/, /hk-en, /hk-zh-hant, /ae-en, /ae-ar", "Live on Next"],
+        ["S5", "About Us · all applicable markets", "30/11–04/12", "04/12", "*/about-us", "Live nếu approved"],
+        ["S6", "Contact Us", "07–09/12", "09/12", "*/contact-us", "Live on Next"],
+        ["S6", "FAQs", "09–14/12", "14/12", "*/faqs", "Live on Next"],
+        ["S6", "How It Works", "14–17/12", "17/12", "*/how-it-works", "Live on Next"],
+        ["S7", "Blog, Blog Detail, Author", "21–23/12", "23/12", "*/blog, */blogs/*, */author/*", "Live on Next"],
+        ["S7", "Visa Card, Boost USD, USD Waitlist, FX Fee", "21–29/12", "29/12", "Các product routes approved", "Live on Next"],
+        ["S7", "Media, Customer Stories, Press", "24–31/12", "31/12", "Media/customer routes", "Live on Next"],
+        ["S8", "Legal, campaigns, documents", "04–13/01", "13/01", "/terms-and-policy/*, /documents/*, campaign URLs", "Live on Next"],
+        ["S8", "Carry-over và audit", "14–15/01", "Khi approved", "Chỉ URL đã pass", "Close-out"]
+      ];
+
+      const phaseMeta = {
+        dev: {
+          label: "Phase 1",
+          title: "Hoàn thành toàn bộ website trên Next staging",
+          summary: "Xây Homepage trước, sau đó hoàn thiện Page Template và tất cả page còn lại. Mỗi page bám theo Webflow live tại ngày bắt đầu làm, đủ các market áp dụng và chưa thay đổi production routing.",
+          dates: "28/09–20/11/2026 · Sprint 1–4"
+        },
+        qa: {
+          label: "Phase 2",
+          title: "User QA, đồng bộ latest và live dần",
+          summary: "Đối chiếu lại với Webflow production mới nhất, user QA theo page family, fix và regression. Page nào được approved sẽ được Cloudflare route sang Next ngay; page chưa pass tiếp tục chạy Webflow.",
+          dates: "23/11/2026–15/01/2027 · Sprint 5–8"
+        }
+      };
+
+      const sprintList = document.querySelector("#sprint-list");
+      const releaseRows = document.querySelector("#release-rows");
+      const releaseCards = document.querySelector("#release-cards");
+      const releaseSearch = document.querySelector("#release-search");
+      const releaseCount = document.querySelector("#release-count");
+      const releaseEmpty = document.querySelector("#release-empty");
+
+      function getStatusClass(status) {
+        if (status.includes("Live")) return "live";
+        if (status.includes("QA")) return "qa";
+        return "build";
+      }
+
+      function renderSprintCard(sprint) {
+        return `
+          <article class="sprint ${sprint.phase}">
+            <div>
+              <div class="sprint-number">Sprint ${sprint.no}</div>
+              <div class="sprint-date">${sprint.dates}</div>
+            </div>
+            <div class="days"><b>2</b><span>tuần</span></div>
+            <div class="sprint-main">
+              <h3>${sprint.title}</h3>
+              <p>${sprint.description}</p>
+              <div class="week-list">
+                ${sprint.weeks.map((week) => `
+                  <div class="week-row">
+                    <div class="week-label">${week.label}<span>${week.dates}</span></div>
+                    <div class="week-work">${week.work}</div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          </article>`;
+      }
+
+      function renderSprints() {
+        sprintList.innerHTML = ["dev", "qa"].map((phase) => {
+          const meta = phaseMeta[phase];
+          const phaseSprints = sprints.filter((sprint) => sprint.phase === phase);
+          return `
+            <section class="timeline-group ${phase}" aria-labelledby="${phase}-phase-title">
+              <div class="timeline-group-head">
+                <div class="phase-index">${meta.label}</div>
+                <div>
+                  <h3 class="timeline-group-title" id="${phase}-phase-title">${meta.title}</h3>
+                  <p class="timeline-group-summary">${meta.summary}</p>
+                  <span class="timeline-group-dates">${meta.dates}</span>
+                </div>
+              </div>
+              <div class="timeline">${phaseSprints.map(renderSprintCard).join("")}</div>
+            </section>`;
+        }).join("");
+      }
+
+      function renderReleasePlan(query = "") {
+        const normalizedQuery = query.trim().toLocaleLowerCase("vi");
+        const visibleRows = releasePlan.filter((row) =>
+          row.join(" ").toLocaleLowerCase("vi").includes(normalizedQuery)
+        );
+
+        releaseRows.innerHTML = visibleRows.map((row) => `
+          <tr>
+            <td><strong>${row[0]}</strong></td>
+            <td>${row[1]}</td>
+            <td>${row[2]}</td>
+            <td><strong>${row[3]}</strong></td>
+            <td><code>${row[4]}</code></td>
+            <td><span class="status ${getStatusClass(row[5])}">${row[5]}</span></td>
+          </tr>
+        `).join("");
+
+        releaseCards.innerHTML = visibleRows.map((row) => `
+          <article class="release-card">
+            <div class="release-card-head">
+              <div><span class="sprint-number">${row[0]}</span><h3>${row[1]}</h3></div>
+              <span class="status ${getStatusClass(row[5])}">${row[5]}</span>
+            </div>
+            <dl>
+              <dt>QA</dt><dd>${row[2]}</dd>
+              <dt>Target live</dt><dd>${row[3]}</dd>
+              <dt>Cloudflare</dt><dd><code>${row[4]}</code></dd>
+            </dl>
+          </article>
+        `).join("");
+
+        releaseCount.textContent = `${visibleRows.length}/${releasePlan.length} page groups`;
+        releaseEmpty.style.display = visibleRows.length ? "none" : "block";
+      }
+
+      releaseSearch.addEventListener("input", (event) => renderReleasePlan(event.target.value));
+
+      renderSprints();
+      renderReleasePlan();
+    </script>
+  </body>
+</html>
