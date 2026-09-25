@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -299,6 +299,9 @@
       footer { padding: 26px 0 40px; color: var(--muted); font-size: 13px; }
       .print { padding: 9px 13px; border: 0; border-radius: 10px; color: var(--white); background: var(--ruby); cursor: pointer; font-weight: 800; }
       .print:hover { background: var(--ruby-dark); }
+      .lang-switcher { padding: 8px 14px; border-radius: 10px; border: 2px solid var(--ruby); font-size: 13px; font-weight: 800; color: var(--ruby); background: #fff2f8; cursor: pointer; outline: none; margin-right: 8px; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(228, 32, 130, 0.15); }
+      .lang-switcher:hover, .lang-switcher:focus { background: var(--ruby); color: var(--white); box-shadow: 0 6px 16px rgba(228, 32, 130, 0.25); transform: translateY(-1px); }
+      .topbar-actions { display: flex; align-items: center; }
       .skip-link { position: fixed; left: 12px; top: -60px; z-index: 99; padding: 10px 14px; border-radius: 8px; color: var(--white); background: var(--choco); }
       .skip-link:focus { top: 12px; }
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -341,17 +344,16 @@
     </style>
   </head>
   <body>
-    <a class="skip-link" href="#timeline">Bỏ qua đến timeline</a>
+    <a class="skip-link" href="#timeline" data-i18n="skipLink">Bỏ qua đến timeline</a>
     <header class="hero">
       <div class="shell">
         <span class="eyebrow">Migration roadmap · v3</span>
-        <h1>Webflow → Next.js, QA và live dần theo từng page</h1>
-        <p>Homepage được làm trước. Hai tháng đầu hoàn thiện staging theo Webflow live tại ngày bắt đầu từng page; hai tháng sau user QA, đồng bộ delta và route từng page family qua Cloudflare.</p>
+        <h1 data-i18n="heroTitle">Webflow → Next.js, QA và live dần theo từng page</h1>
+        <p data-i18n="heroDesc">Homepage được làm trước. Hai tháng đầu hoàn thiện staging theo Webflow live tại ngày bắt đầu từng page; hai tháng sau user QA, đồng bộ delta và route từng page family qua Cloudflare.</p>
         <div class="hero-meta">
-          <span class="pill">Bắt đầu: Thứ Hai, 28/09/2026</span>
-          <span class="pill">Kết thúc mục tiêu: Thứ Sáu, 15/01/2027</span>
+          <span class="pill" data-i18n="heroStart">Bắt đầu: Thứ Hai, 28/09/2026</span>
+          <span class="pill" data-i18n="heroEnd">Kết thúc mục tiêu: Thứ Sáu, 15/01/2027</span>
           <span class="pill">Mon–Fri · Asia/Ho_Chi_Minh</span>
-          <span class="pill">Không dùng HK Simplified Chinese</span>
         </div>
       </div>
     </header>
@@ -360,12 +362,17 @@
       <div class="shell topbar-inner">
         <div class="brand">Chocolate Finance Migration</div>
         <nav aria-label="Điều hướng tài liệu">
-          <a href="#assumptions">Giả định</a>
-          <a href="#timeline">Timeline</a>
-          <a href="#release">QA &amp; Live</a>
-          <a href="#workflow">Release gate</a>
+          <a href="#assumptions" data-i18n="navAssumptions">Giả định</a>
+          <a href="#timeline" data-i18n="navTimeline">Timeline</a>
+          <a href="#release" data-i18n="navRelease">QA &amp; Live</a>
+          <a href="#workflow" data-i18n="navWorkflow">Release gate</a>
         </nav>
-        <button class="print" type="button" onclick="window.print()">In / Xuất PDF</button>
+        <div class="topbar-actions">
+          <select id="lang-switcher" class="lang-switcher" onchange="setLanguage(this.value)">
+            <option value="en" selected>English</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -373,37 +380,37 @@
       <section id="assumptions">
         <div class="section-head">
           <div>
-            <h2>Giả định lập kế hoạch</h2>
-            <p class="sub">Sprint chạy theo lịch làm việc bình thường từ Thứ Hai đến Thứ Sáu.</p>
+            <h2 data-i18n="assumptionsTitle">Giả định lập kế hoạch</h2>
+            <p class="sub" data-i18n="assumptionsSub">Sprint chạy theo lịch làm việc bình thường từ Thứ Hai đến Thứ Sáu.</p>
           </div>
         </div>
         <div class="callout">
           <div class="icon">!</div>
           <div>
-            <strong>Cách tính sprint</strong>
-            <p>Mỗi sprint kéo dài 2 tuần. Từng tuần có scope và đầu ra riêng để review vào đầu tuần kế tiếp.</p>
+            <strong data-i18n="sprintCalcTitle">Cách tính sprint</strong>
+            <p data-i18n="sprintCalcDesc">Mỗi sprint kéo dài 2 tuần. Từng tuần có scope và đầu ra riêng để review vào đầu tuần kế tiếp.</p>
           </div>
         </div>
         <div class="stats">
-          <div class="stat"><b>16</b><span>Tổng số tuần</span></div>
-          <div class="stat"><b>8</b><span>Tuần Phase 1 · Development</span></div>
-          <div class="stat"><b>8</b><span>Tuần Phase 2 · QA &amp; rollout</span></div>
-          <div class="stat"><b>1</b><span>Weekly review vào đầu mỗi tuần</span></div>
+          <div class="stat"><b>16</b><span data-i18n="totalWeeks">Tổng số tuần</span></div>
+          <div class="stat"><b>8</b><span data-i18n="phase1Weeks">Tuần Phase 1 · Development</span></div>
+          <div class="stat"><b>8</b><span data-i18n="phase2Weeks">Tuần Phase 2 · QA &amp; rollout</span></div>
+          <div class="stat"><b>1</b><span data-i18n="weeklyReviewStart">Weekly review vào đầu mỗi tuần</span></div>
         </div>
       </section>
 
       <section id="timeline">
         <div class="section-head">
           <div>
-            <h2>Timeline 8 sprint</h2>
-            <p class="sub">Mỗi sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.</p>
+            <h2 data-i18n="timelineTitle">Timeline 8 sprint</h2>
+            <p class="sub" data-i18n="timelineSub">Mỗi sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.</p>
           </div>
         </div>
         <div class="weekly-rhythm">
           <div class="weekly-rhythm-number">Mon</div>
           <div>
-            <b>Weekly review vào đầu tuần</b>
-            <span>Tuần 1 dùng để kickoff; từ Tuần 2, mỗi sáng Thứ Hai review tuần trước đã làm được gì, demo staging, chốt carry-over/blocker và xác nhận scope tuần mới.</span>
+            <b data-i18n="weeklyReviewH">Weekly review vào đầu tuần</b>
+            <span data-i18n="weeklyReviewP">Tuần 1 dùng để kickoff; từ Tuần 2, mỗi sáng Thứ Hai review tuần trước đã làm được gì, demo staging, chốt carry-over/blocker và xác nhận scope tuần mới.</span>
           </div>
         </div>
         <div class="timeline-groups" id="sprint-list"></div>
@@ -412,14 +419,14 @@
       <section id="release">
         <div class="section-head">
           <div>
-            <h2>Phase 2: page nào QA và live ở sprint nào?</h2>
-            <p class="sub">Ngày live là target. Nếu chưa pass toàn bộ market, URL đó vẫn ở Webflow và carry-over sang sprint kế tiếp.</p>
+            <h2 data-i18n="releaseTitle">Phase 2: page nào QA và live ở sprint nào?</h2>
+            <p class="sub" data-i18n="releaseSub">Ngày live là target. Nếu chưa pass toàn bộ market, URL đó vẫn ở Webflow và carry-over sang sprint kế tiếp.</p>
           </div>
         </div>
         <div class="release-tools">
           <label>
             <span class="sr-only">Tìm page hoặc sprint</span>
-            <input class="search" id="release-search" type="search" placeholder="Tìm page, sprint hoặc URL…" autocomplete="off" />
+            <input class="search" id="release-search" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Tìm page, sprint hoặc URL…" autocomplete="off" />
           </label>
           <span class="release-count" id="release-count" aria-live="polite"></span>
         </div>
@@ -427,40 +434,40 @@
           <table>
             <thead>
               <tr>
-                <th>Sprint</th>
-                <th>Page family</th>
-                <th>QA window</th>
-                <th>Target live</th>
-                <th>Cloudflare scope</th>
-                <th>Trạng thái mục tiêu</th>
+                <th data-i18n="thSprint">Sprint</th>
+                <th data-i18n="thPageFamily">Page family</th>
+                <th data-i18n="thQaWindow">QA window</th>
+                <th data-i18n="thTargetLive">Target live</th>
+                <th data-i18n="thCloudflare">Cloudflare scope</th>
+                <th data-i18n="thStatus">Trạng thái mục tiêu</th>
               </tr>
             </thead>
             <tbody id="release-rows"></tbody>
           </table>
         </div>
         <div class="release-cards" id="release-cards"></div>
-        <div class="empty" id="release-empty">Không tìm thấy page phù hợp.</div>
-        <div class="note"><strong>Nguyên tắc release:</strong> page nào hoàn thành latest sync, pass QA tất cả market và được approved thì live ngay trong sprint được phân công. Nếu chưa pass thì giữ ở Webflow và tiếp tục xử lý ở sprint sau.</div>
+        <div class="empty" id="release-empty" data-i18n="releaseEmpty">Không tìm thấy page phù hợp.</div>
+        <div class="note" data-i18n="releaseNote"><strong>Nguyên tắc release:</strong> page nào hoàn thành latest sync, pass QA tất cả market và được approved thì live ngay trong sprint được phân công. Nếu chưa pass thì giữ ở Webflow và tiếp tục xử lý ở sprint sau.</div>
       </section>
 
       <section id="workflow">
         <div class="section-head">
           <div>
-            <h2>Gate bắt buộc cho từng page</h2>
-            <p class="sub">Một page family chỉ được route khi tất cả market bắt buộc đã pass.</p>
+            <h2 data-i18n="workflowTitle">Gate bắt buộc cho từng page</h2>
+            <p class="sub" data-i18n="workflowSub">Một page family chỉ được route khi tất cả market bắt buộc đã pass.</p>
           </div>
         </div>
         <div class="flow">
-          <div class="flow-step" data-step="01"><b>Latest sync</b><span>Đối chiếu Webflow live và cập nhật toàn bộ delta.</span></div>
-          <div class="flow-step" data-step="02"><b>User QA</b><span>Kiểm tra SG, HK EN, HK ZH-Hant, UAE EN và UAE AR.</span></div>
-          <div class="flow-step" data-step="03"><b>Fix &amp; re-QA</b><span>Đóng blocker, critical issue và chạy regression.</span></div>
-          <div class="flow-step" data-step="04"><b>Cloudflare route</b><span>Chuyển đúng page family từ Webflow sang Next.</span></div>
-          <div class="flow-step" data-step="05"><b>Monitor</b><span>Theo dõi 24 giờ và rollback riêng page khi cần.</span></div>
+          <div class="flow-step" data-step="01"><b data-i18n="wf1Title">Latest sync</b><span data-i18n="wf1Desc">Đối chiếu Webflow live và cập nhật toàn bộ delta.</span></div>
+          <div class="flow-step" data-step="02"><b data-i18n="wf2Title">User QA</b><span data-i18n="wf2Desc">Kiểm tra SG, HK EN, HK ZH-Hant, UAE EN và UAE AR.</span></div>
+          <div class="flow-step" data-step="03"><b data-i18n="wf3Title">Fix &amp; re-QA</b><span data-i18n="wf3Desc">Đóng blocker, critical issue và chạy regression.</span></div>
+          <div class="flow-step" data-step="04"><b data-i18n="wf4Title">Cloudflare route</b><span data-i18n="wf4Desc">Chuyển đúng page family từ Webflow sang Next.</span></div>
+          <div class="flow-step" data-step="05"><b data-i18n="wf5Title">Monitor</b><span data-i18n="wf5Desc">Theo dõi 24 giờ và rollback riêng page khi cần.</span></div>
         </div>
       </section>
 
       <section id="sources">
-        <div class="section-head"><div><h2>Nguồn kiểm tra</h2></div></div>
+        <div class="section-head"><div><h2 data-i18n="sourcesTitle">Nguồn kiểm tra</h2></div></div>
         <div class="sources">
           <a href="https://chocolatefinance.webflow.io/" target="_blank" rel="noreferrer">Webflow live</a>
           <a href="https://chocolatefinance.webflow.io/sitemap.xml" target="_blank" rel="noreferrer">Webflow sitemap</a>
@@ -469,124 +476,234 @@
       </section>
     </main>
 
-    <footer class="shell">Plan version 3 · Lịch tính theo Asia/Ho_Chi_Minh · HK Simplified Chinese đã loại khỏi scope.</footer>
+    <footer class="shell" data-i18n="footerNote">Plan version 3 · Lịch tính theo Asia/Ho_Chi_Minh · HK Simplified Chinese đã loại khỏi scope.</footer>
 
+    
+    <script>
+      const i18n = {
+        vi: {
+          skipLink: "Bỏ qua đến timeline",
+          heroTitle: "Webflow → Next.js, QA và live dần theo từng page",
+          heroDesc: "Homepage được làm trước. Hai tháng đầu hoàn thiện staging theo Webflow live tại ngày bắt đầu từng page; hai tháng sau user QA, đồng bộ delta và route từng page family qua Cloudflare.",
+          heroStart: "Bắt đầu: Thứ Hai, 28/09/2026",
+          heroEnd: "Kết thúc mục tiêu: Thứ Sáu, 15/01/2027",
+          heroNoHK: "Không dùng HK Simplified Chinese",
+          navAssumptions: "Giả định",
+          navTimeline: "Timeline",
+          navRelease: "QA & Live",
+          navWorkflow: "Release gate",
+          assumptionsTitle: "Giả định lập kế hoạch",
+          assumptionsSub: "Sprint chạy theo lịch làm việc bình thường từ Thứ Hai đến Thứ Sáu.",
+          sprintCalcTitle: "Cách tính sprint",
+          sprintCalcDesc: "Mỗi sprint kéo dài 2 tuần. Từng tuần có scope và đầu ra riêng để review vào đầu tuần kế tiếp.",
+          totalWeeks: "Tổng số tuần",
+          phase1Weeks: "Tuần Phase 1 · Development",
+          phase2Weeks: "Tuần Phase 2 · QA & rollout",
+          weeklyReviewStart: "Weekly review vào đầu mỗi tuần",
+          timelineTitle: "Timeline 8 sprint",
+          timelineSub: "Mỗi sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.",
+          weeklyReviewH: "Weekly review vào đầu tuần",
+          weeklyReviewP: "Tuần 1 dùng để kickoff; từ Tuần 2, mỗi sáng Thứ Hai review tuần trước đã làm được gì, demo staging, chốt carry-over/blocker và xác nhận scope tuần mới.",
+          releaseTitle: "Phase 2: page nào QA và live ở sprint nào?",
+          releaseSub: "Ngày live là target. Nếu chưa pass toàn bộ market, URL đó vẫn ở Webflow và carry-over sang sprint kế tiếp.",
+          searchPlaceholder: "Tìm page, sprint hoặc URL…",
+          thSprint: "Sprint",
+          thPageFamily: "Page family",
+          thQaWindow: "QA window",
+          thTargetLive: "Target live",
+          thCloudflare: "Cloudflare scope",
+          thStatus: "Trạng thái mục tiêu",
+          releaseEmpty: "Không tìm thấy page phù hợp.",
+          releaseNote: "<strong>Nguyên tắc release:</strong> page nào hoàn thành latest sync, pass QA tất cả market và được approved thì live ngay trong sprint được phân công. Nếu chưa pass thì giữ ở Webflow và tiếp tục xử lý ở sprint sau.",
+          workflowTitle: "Gate bắt buộc cho từng page",
+          workflowSub: "Một page family chỉ được route khi tất cả market bắt buộc đã pass.",
+          wf1Title: "Latest sync",
+          wf1Desc: "Đối chiếu Webflow live và cập nhật toàn bộ delta.",
+          wf2Title: "User QA",
+          wf2Desc: "Kiểm tra SG, HK EN, HK ZH-Hant, UAE EN và UAE AR.",
+          wf3Title: "Fix & re-QA",
+          wf3Desc: "Đóng blocker, critical issue và chạy regression.",
+          wf4Title: "Cloudflare route",
+          wf4Desc: "Chuyển đúng page family từ Webflow sang Next.",
+          wf5Title: "Monitor",
+          wf5Desc: "Theo dõi 24 giờ và rollback riêng page khi cần.",
+          sourcesTitle: "Nguồn kiểm tra",
+          footerNote: "Plan version 3 · Lịch tính theo Asia/Ho_Chi_Minh · HK Simplified Chinese đã loại khỏi scope.",
+          btnPrint: "In / Xuất PDF",
+          wordWeeks: "tuần"
+        },
+        en: {
+          skipLink: "Skip to timeline",
+          heroTitle: "Webflow → Next.js, QA and gradual live rollout per page",
+          heroDesc: "Homepage is built first. First two months to complete staging based on Webflow live at the start date of each page; next two months for user QA, delta sync and routing each page family via Cloudflare.",
+          heroStart: "Start: Monday, Sep 28, 2026",
+          heroEnd: "Target End: Friday, Jan 15, 2027",
+          heroNoHK: "HK Simplified Chinese excluded",
+          navAssumptions: "Assumptions",
+          navTimeline: "Timeline",
+          navRelease: "QA & Live",
+          navWorkflow: "Release gate",
+          assumptionsTitle: "Planning Assumptions",
+          assumptionsSub: "Sprints run on normal working days from Monday to Friday.",
+          sprintCalcTitle: "Sprint calculation",
+          sprintCalcDesc: "Each sprint lasts 2 weeks. Every week has its own scope and output to review early next week.",
+          totalWeeks: "Total weeks",
+          phase1Weeks: "Weeks Phase 1 · Development",
+          phase2Weeks: "Weeks Phase 2 · QA & rollout",
+          weeklyReviewStart: "Weekly review at start of each week",
+          timelineTitle: "8-sprint Timeline",
+          timelineSub: "Each sprint has 2 weeks; each week has specific scope for review and reporting.",
+          weeklyReviewH: "Weekly review early week",
+          weeklyReviewP: "Week 1 for kickoff; from Week 2, every Monday morning review past week's work, demo staging, finalize carry-over/blocker and confirm new week scope.",
+          releaseTitle: "Phase 2: which pages QA and live in which sprint?",
+          releaseSub: "Live date is target. If not passing all markets, the URL remains on Webflow and carries over to next sprint.",
+          searchPlaceholder: "Search page, sprint or URL…",
+          thSprint: "Sprint",
+          thPageFamily: "Page family",
+          thQaWindow: "QA window",
+          thTargetLive: "Target live",
+          thCloudflare: "Cloudflare scope",
+          thStatus: "Target status",
+          releaseEmpty: "No matching pages found.",
+          releaseNote: "<strong>Release principle:</strong> whichever page finishes latest sync, passes QA in all markets and is approved goes live in assigned sprint. Otherwise, it stays on Webflow and is handled next sprint.",
+          workflowTitle: "Mandatory gates per page",
+          workflowSub: "A page family is routed only when all mandatory markets pass.",
+          wf1Title: "Latest sync",
+          wf1Desc: "Compare Webflow live and update all deltas.",
+          wf2Title: "User QA",
+          wf2Desc: "Check SG, HK EN, HK ZH-Hant, UAE EN and UAE AR.",
+          wf3Title: "Fix & re-QA",
+          wf3Desc: "Close blockers, critical issues and run regression.",
+          wf4Title: "Cloudflare route",
+          wf4Desc: "Move correct page family from Webflow to Next.",
+          wf5Title: "Monitor",
+          wf5Desc: "Monitor for 24 hours and rollback specific pages if needed.",
+          sourcesTitle: "Validation sources",
+          footerNote: "Plan version 3 · Schedule in Asia/Ho_Chi_Minh · HK Simplified Chinese excluded from scope.",
+          btnPrint: "Print / Export PDF",
+          wordWeeks: "weeks"
+        }
+      };
+      
+      let currentLang = "en";
+      
+      function setLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+        });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          if (i18n[lang][key]) el.placeholder = i18n[lang][key];
+        });
+        
+        // Re-render JS parts
+        renderSprints();
+        renderReleasePlan(document.querySelector("#release-search").value);
+      }
+    </script>
     <script>
       const sprints = [
         {
-          no: 1,
-          phase: "dev",
-          dates: "28/09–09/10/2026",
-          title: "Homepage tất cả market",
-          description: "Capture Webflow live ngày bắt đầu và hoàn thiện Homepage SG, HK EN, HK ZH-Hant, UAE EN, UAE AR trên staging.",
+          no: 1, phase: "dev", dates: "28/09–09/10/2026",
+          title: { vi: "Homepage tất cả market", en: "Homepage all markets" },
+          description: { vi: "Capture Webflow live ngày bắt đầu và hoàn thiện Homepage SG, HK EN, HK ZH-Hant, UAE EN, UAE AR trên staging.", en: "Capture Webflow live on start date and complete Homepage SG, HK EN, HK ZH-Hant, UAE EN, UAE AR on staging." },
           weeks: [
-            { label: "Tuần 1", dates: "28/09–02/10", work: "Capture Homepage Webflow live; hoàn thiện structure, global header/footer và Homepage SG." },
-            { label: "Tuần 2", dates: "05/10–09/10", work: "Hoàn thiện Homepage HK/UAE, localization, Arabic RTL, responsive và staging review." }
+            { label: { vi: "Tuần 1", en: "Week 1" }, dates: "28/09–02/10", work: { vi: "Capture Homepage Webflow live; hoàn thiện structure, global header/footer và Homepage SG.", en: "Capture Homepage Webflow live; complete structure, global header/footer and Homepage SG." } },
+            { label: { vi: "Tuần 2", en: "Week 2" }, dates: "05/10–09/10", work: { vi: "Hoàn thiện Homepage HK/UAE, localization, Arabic RTL, responsive và staging review.", en: "Complete Homepage HK/UAE, localization, Arabic RTL, responsive and staging review." } }
           ]
         },
         {
-          no: 2,
-          phase: "dev",
-          dates: "12/10–23/10/2026",
-          title: "Page Template và core pages",
-          description: "Xây reusable templates rồi áp dụng cho About Us, How It Works, Contact Us và FAQs. Baseline lấy theo ngày bắt đầu từng page.",
+          no: 2, phase: "dev", dates: "12/10–23/10/2026",
+          title: { vi: "Page Template và core pages", en: "Page Template and core pages" },
+          description: { vi: "Xây reusable templates rồi áp dụng cho About Us, How It Works, Contact Us và FAQs. Baseline lấy theo ngày bắt đầu từng page.", en: "Build reusable templates then apply for About Us, How It Works, Contact Us and FAQs. Baseline based on start date of each page." },
           weeks: [
-            { label: "Tuần 3", dates: "12/10–16/10", work: "Xây Page Template reusable; áp dụng cho About Us và Contact Us trên tất cả market áp dụng." },
-            { label: "Tuần 4", dates: "19/10–23/10", work: "Hoàn thiện How It Works và FAQs; kiểm tra deep link, form và localized content." }
+            { label: { vi: "Tuần 3", en: "Week 3" }, dates: "12/10–16/10", work: { vi: "Xây Page Template reusable; áp dụng cho About Us và Contact Us trên tất cả market áp dụng.", en: "Build reusable Page Template; apply for About Us and Contact Us on all applicable markets." } },
+            { label: { vi: "Tuần 4", en: "Week 4" }, dates: "19/10–23/10", work: { vi: "Hoàn thiện How It Works và FAQs; kiểm tra deep link, form và localized content.", en: "Complete How It Works and FAQs; check deep links, forms and localized content." } }
           ]
         },
         {
-          no: 3,
-          phase: "dev",
-          dates: "26/10–06/11/2026",
-          title: "Content và product pages",
-          description: "Blog, Blog Detail, Author, Visa Card, Boost with USD, USD Waitlist, FX Guarantee Fee, Media và Customer Stories.",
+          no: 3, phase: "dev", dates: "26/10–06/11/2026",
+          title: { vi: "Content và product pages", en: "Content and product pages" },
+          description: { vi: "Blog, Blog Detail, Author, Visa Card, Boost with USD, USD Waitlist, FX Guarantee Fee, Media và Customer Stories.", en: "Blog, Blog Detail, Author, Visa Card, Boost with USD, USD Waitlist, FX Guarantee Fee, Media and Customer Stories." },
           weeks: [
-            { label: "Tuần 5", dates: "26/10–30/10", work: "Hoàn thiện Blog listing, Blog detail, Author và content migration structure." },
-            { label: "Tuần 6", dates: "02/11–06/11", work: "Hoàn thiện Visa, Boost USD, USD Waitlist, FX Fee, Media và Customer Stories." }
+            { label: { vi: "Tuần 5", en: "Week 5" }, dates: "26/10–30/10", work: { vi: "Hoàn thiện Blog listing, Blog detail, Author và content migration structure.", en: "Complete Blog listing, Blog detail, Author and content migration structure." } },
+            { label: { vi: "Tuần 6", en: "Week 6" }, dates: "02/11–06/11", work: { vi: "Hoàn thiện Visa, Boost USD, USD Waitlist, FX Fee, Media và Customer Stories.", en: "Complete Visa, Boost USD, USD Waitlist, FX Fee, Media and Customer Stories." } }
           ]
         },
         {
-          no: 4,
-          phase: "dev",
-          dates: "09/11–20/11/2026",
-          title: "Long-tail và staging completion",
-          description: "Legal, campaign, documents, press statement, content migration, SEO, accessibility và full staging regression.",
+          no: 4, phase: "dev", dates: "09/11–20/11/2026",
+          title: { vi: "Long-tail và staging completion", en: "Long-tail and staging completion" },
+          description: { vi: "Legal, campaign, documents, press statement, content migration, SEO, accessibility và full staging regression.", en: "Legal, campaign, documents, press statement, content migration, SEO, accessibility and full staging regression." },
           weeks: [
-            { label: "Tuần 7", dates: "09/11–13/11", work: "Hoàn thiện Legal, campaign, documents và Press Statement theo Webflow live." },
-            { label: "Tuần 8", dates: "16/11–20/11", work: "Content migration, SEO, accessibility, full staging regression và chốt feature complete." }
+            { label: { vi: "Tuần 7", en: "Week 7" }, dates: "09/11–13/11", work: { vi: "Hoàn thiện Legal, campaign, documents và Press Statement theo Webflow live.", en: "Complete Legal, campaign, documents and Press Statement based on Webflow live." } },
+            { label: { vi: "Tuần 8", en: "Week 8" }, dates: "16/11–20/11", work: { vi: "Content migration, SEO, accessibility, full staging regression và chốt feature complete.", en: "Content migration, SEO, accessibility, full staging regression and sign off feature complete." } }
           ]
         },
         {
-          no: 5,
-          phase: "qa",
-          dates: "23/11–04/12/2026",
-          title: "QA & live: Homepage, About Us",
-          description: "Sync latest Webflow, user QA toàn market, fix và route Homepage trước; About Us live sau khi đạt cùng gate.",
+          no: 5, phase: "qa", dates: "23/11–04/12/2026",
+          title: { vi: "QA & live: Homepage, About Us", en: "QA & live: Homepage, About Us" },
+          description: { vi: "Sync latest Webflow, user QA toàn market, fix và route Homepage trước; About Us live sau khi đạt cùng gate.", en: "Sync latest Webflow, user QA all markets, fix and route Homepage first; About Us live after passing same gates." },
           weeks: [
-            { label: "Tuần 9", dates: "23/11–27/11", work: "Sync Homepage với Webflow latest; user QA tất cả market, fix và regression." },
-            { label: "Tuần 10", dates: "30/11–04/12", work: "Live Homepage; QA/fix About Us và live sau khi được approved." }
+            { label: { vi: "Tuần 9", en: "Week 9" }, dates: "23/11–27/11", work: { vi: "Sync Homepage với Webflow latest; user QA tất cả market, fix và regression.", en: "Sync Homepage with latest Webflow; user QA all markets, fix and regression." } },
+            { label: { vi: "Tuần 10", en: "Week 10" }, dates: "30/11–04/12", work: { vi: "Live Homepage; QA/fix About Us và live sau khi được approved.", en: "Live Homepage; QA/fix About Us and live after approved." } }
           ]
         },
         {
-          no: 6,
-          phase: "qa",
-          dates: "07/12–18/12/2026",
-          title: "QA & live: Core pages",
-          description: "Contact Us, FAQs và How It Works lần lượt qua latest sync, QA, fix, sign-off và Cloudflare routing.",
+          no: 6, phase: "qa", dates: "07/12–18/12/2026",
+          title: { vi: "QA & live: Core pages", en: "QA & live: Core pages" },
+          description: { vi: "Contact Us, FAQs và How It Works lần lượt qua latest sync, QA, fix, sign-off và Cloudflare routing.", en: "Contact Us, FAQs and How It Works go through latest sync, QA, fix, sign-off and Cloudflare routing respectively." },
           weeks: [
-            { label: "Tuần 11", dates: "07/12–11/12", work: "QA/fix Contact Us và live; bắt đầu latest sync và QA FAQs." },
-            { label: "Tuần 12", dates: "14/12–18/12", work: "Live FAQs; QA/fix How It Works và route sang Next sau approval." }
+            { label: { vi: "Tuần 11", en: "Week 11" }, dates: "07/12–11/12", work: { vi: "QA/fix Contact Us và live; bắt đầu latest sync và QA FAQs.", en: "QA/fix Contact Us and live; start latest sync and QA FAQs." } },
+            { label: { vi: "Tuần 12", en: "Week 12" }, dates: "14/12–18/12", work: { vi: "Live FAQs; QA/fix How It Works và route sang Next sau approval.", en: "Live FAQs; QA/fix How It Works and route to Next after approval." } }
           ]
         },
         {
-          no: 7,
-          phase: "qa",
-          dates: "21/12/2026–01/01/2027",
-          title: "QA & live: Blog, product và media",
-          description: "QA và live Blog/Author, product pages, Media và Customer Stories lần lượt ngay khi từng page family được approved.",
+          no: 7, phase: "qa", dates: "21/12/2026–01/01/2027",
+          title: { vi: "QA & live: Blog, product và media", en: "QA & live: Blog, product and media" },
+          description: { vi: "QA và live Blog/Author, product pages, Media và Customer Stories lần lượt ngay khi từng page family được approved.", en: "QA and live Blog/Author, product pages, Media and Customer Stories respectively as soon as each page family is approved." },
           weeks: [
-            { label: "Tuần 13", dates: "21/12–25/12", work: "QA/fix và live Blog, Blog Detail, Author; tiếp tục QA product pages." },
-            { label: "Tuần 14", dates: "28/12–01/01", work: "Live product pages; QA/fix và live Media, Customer Stories, Press." }
+            { label: { vi: "Tuần 13", en: "Week 13" }, dates: "21/12–25/12", work: { vi: "QA/fix và live Blog, Blog Detail, Author; tiếp tục QA product pages.", en: "QA/fix and live Blog, Blog Detail, Author; continue QA product pages." } },
+            { label: { vi: "Tuần 14", en: "Week 14" }, dates: "28/12–01/01", work: { vi: "Live product pages; QA/fix và live Media, Customer Stories, Press.", en: "Live product pages; QA/fix and live Media, Customer Stories, Press." } }
           ]
         },
         {
-          no: 8,
-          phase: "qa",
-          dates: "04/01–15/01/2027",
-          title: "Long-tail, carry-over và handover",
-          description: "QA và live legal/campaign/documents, xử lý page còn tồn từ sprint trước và audit toàn bộ routing.",
+          no: 8, phase: "qa", dates: "04/01–15/01/2027",
+          title: { vi: "Long-tail, carry-over và handover", en: "Long-tail, carry-over and handover" },
+          description: { vi: "QA và live legal/campaign/documents, xử lý page còn tồn từ sprint trước và audit toàn bộ routing.", en: "QA and live legal/campaign/documents, handle carry-over pages and audit all routing." },
           weeks: [
-            { label: "Tuần 15", dates: "04/01–08/01", work: "Latest sync và user QA Legal, campaigns, documents; xử lý carry-over còn lại." },
-            { label: "Tuần 16", dates: "11/01–15/01", work: "Live long-tail pages, audit Cloudflare/SEO/analytics và hoàn tất handover." }
+            { label: { vi: "Tuần 15", en: "Week 15" }, dates: "04/01–08/01", work: { vi: "Latest sync và user QA Legal, campaigns, documents; xử lý carry-over còn lại.", en: "Latest sync and user QA Legal, campaigns, documents; handle remaining carry-over." } },
+            { label: { vi: "Tuần 16", en: "Week 16" }, dates: "11/01–15/01", work: { vi: "Live long-tail pages, audit Cloudflare/SEO/analytics và hoàn tất handover.", en: "Live long-tail pages, audit Cloudflare/SEO/analytics and complete handover." } }
           ]
         }
       ];
 
       const releasePlan = [
-        ["S5", "Homepage · all markets", "23–30/11", "01/12", "/, /hk-en, /hk-zh-hant, /ae-en, /ae-ar", "Live on Next"],
-        ["S5", "About Us · all applicable markets", "30/11–04/12", "04/12", "*/about-us", "Live nếu approved"],
-        ["S6", "Contact Us", "07–09/12", "09/12", "*/contact-us", "Live on Next"],
-        ["S6", "FAQs", "09–14/12", "14/12", "*/faqs", "Live on Next"],
-        ["S6", "How It Works", "14–17/12", "17/12", "*/how-it-works", "Live on Next"],
-        ["S7", "Blog, Blog Detail, Author", "21–23/12", "23/12", "*/blog, */blogs/*, */author/*", "Live on Next"],
-        ["S7", "Visa Card, Boost USD, USD Waitlist, FX Fee", "21–29/12", "29/12", "Các product routes approved", "Live on Next"],
-        ["S7", "Media, Customer Stories, Press", "24–31/12", "31/12", "Media/customer routes", "Live on Next"],
-        ["S8", "Legal, campaigns, documents", "04–13/01", "13/01", "/terms-and-policy/*, /documents/*, campaign URLs", "Live on Next"],
-        ["S8", "Carry-over và audit", "14–15/01", "Khi approved", "Chỉ URL đã pass", "Close-out"]
+        ["S5", { vi: "Homepage · all markets", en: "Homepage · all markets" }, { vi: "23–30/11", en: "23–30/11" }, "01/12", { vi: "/, /hk-en, /hk-zh-hant, /ae-en, /ae-ar", en: "/, /hk-en, /hk-zh-hant, /ae-en, /ae-ar" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S5", { vi: "About Us · all applicable markets", en: "About Us · all applicable markets" }, { vi: "30/11–04/12", en: "30/11–04/12" }, "04/12", { vi: "*/about-us", en: "*/about-us" }, { vi: "Live nếu approved", en: "Live if approved" }],
+        ["S6", { vi: "Contact Us", en: "Contact Us" }, { vi: "07–09/12", en: "07–09/12" }, "09/12", { vi: "*/contact-us", en: "*/contact-us" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S6", { vi: "FAQs", en: "FAQs" }, { vi: "09–14/12", en: "09–14/12" }, "14/12", { vi: "*/faqs", en: "*/faqs" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S6", { vi: "How It Works", en: "How It Works" }, { vi: "14–17/12", en: "14–17/12" }, "17/12", { vi: "*/how-it-works", en: "*/how-it-works" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S7", { vi: "Blog, Blog Detail, Author", en: "Blog, Blog Detail, Author" }, { vi: "21–23/12", en: "21–23/12" }, "23/12", { vi: "*/blog, */blogs/*, */author/*", en: "*/blog, */blogs/*, */author/*" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S7", { vi: "Visa Card, Boost USD, USD Waitlist, FX Fee", en: "Visa Card, Boost USD, USD Waitlist, FX Fee" }, { vi: "21–29/12", en: "21–29/12" }, "29/12", { vi: "Các product routes approved", en: "Approved product routes" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S7", { vi: "Media, Customer Stories, Press", en: "Media, Customer Stories, Press" }, { vi: "24–31/12", en: "24–31/12" }, "31/12", { vi: "Media/customer routes", en: "Media/customer routes" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S8", { vi: "Legal, campaigns, documents", en: "Legal, campaigns, documents" }, { vi: "04–13/01", en: "04–13/01" }, "13/01", { vi: "/terms-and-policy/*, /documents/*, campaign URLs", en: "/terms-and-policy/*, /documents/*, campaign URLs" }, { vi: "Live on Next", en: "Live on Next" }],
+        ["S8", { vi: "Carry-over và audit", en: "Carry-over and audit" }, { vi: "14–15/01", en: "14–15/01" }, "Khi approved", { vi: "Chỉ URL đã pass", en: "Only passed URLs" }, { vi: "Close-out", en: "Close-out" }]
       ];
 
       const phaseMeta = {
         dev: {
           label: "Phase 1",
-          title: "Hoàn thành toàn bộ website trên Next staging",
-          summary: "Xây Homepage trước, sau đó hoàn thiện Page Template và tất cả page còn lại. Mỗi page bám theo Webflow live tại ngày bắt đầu làm, đủ các market áp dụng và chưa thay đổi production routing.",
+          title: { vi: "Hoàn thành toàn bộ website trên Next staging", en: "Complete entire website on Next staging" },
+          summary: { vi: "Xây Homepage trước, sau đó hoàn thiện Page Template và tất cả page còn lại. Mỗi page bám theo Webflow live tại ngày bắt đầu làm, đủ các market áp dụng và chưa thay đổi production routing.", en: "Build Homepage first, then complete Page Template and all remaining pages. Each page follows Webflow live at start date, includes all applicable markets and keeps production routing unchanged." },
           dates: "28/09–20/11/2026 · Sprint 1–4"
         },
         qa: {
           label: "Phase 2",
-          title: "User QA, đồng bộ latest và live dần",
-          summary: "Đối chiếu lại với Webflow production mới nhất, user QA theo page family, fix và regression. Page nào được approved sẽ được Cloudflare route sang Next ngay; page chưa pass tiếp tục chạy Webflow.",
+          title: { vi: "User QA, đồng bộ latest và live dần", en: "User QA, latest sync and gradual live" },
+          summary: { vi: "Đối chiếu lại với Webflow production mới nhất, user QA theo page family, fix và regression. Page nào được approved sẽ được Cloudflare route sang Next ngay; page chưa pass tiếp tục chạy Webflow.", en: "Compare with latest Webflow production, user QA per page family, fix and regression. Any approved page will be routed via Cloudflare to Next immediately; non-passed pages keep running Webflow." },
           dates: "23/11/2026–15/01/2027 · Sprint 5–8"
         }
       };
@@ -599,8 +716,9 @@
       const releaseEmpty = document.querySelector("#release-empty");
 
       function getStatusClass(status) {
-        if (status.includes("Live")) return "live";
-        if (status.includes("QA")) return "qa";
+        const s = typeof status === "object" ? (status.en || status.vi) : status;
+        if (s.includes("Live")) return "live";
+        if (s.includes("QA")) return "qa";
         return "build";
       }
 
@@ -611,15 +729,15 @@
               <div class="sprint-number">Sprint ${sprint.no}</div>
               <div class="sprint-date">${sprint.dates}</div>
             </div>
-            <div class="days"><b>2</b><span>tuần</span></div>
+            <div class="days"><b>2</b><span>${i18n[currentLang].wordWeeks}</span></div>
             <div class="sprint-main">
-              <h3>${sprint.title}</h3>
-              <p>${sprint.description}</p>
+              <h3>${sprint.title[currentLang] || sprint.title}</h3>
+              <p>${sprint.description[currentLang] || sprint.description}</p>
               <div class="week-list">
                 ${sprint.weeks.map((week) => `
                   <div class="week-row">
-                    <div class="week-label">${week.label}<span>${week.dates}</span></div>
-                    <div class="week-work">${week.work}</div>
+                    <div class="week-label">${week.label[currentLang] || week.label}<span>${week.dates}</span></div>
+                    <div class="week-work">${week.work[currentLang] || week.work}</div>
                   </div>
                 `).join("")}
               </div>
@@ -636,8 +754,8 @@
               <div class="timeline-group-head">
                 <div class="phase-index">${meta.label}</div>
                 <div>
-                  <h3 class="timeline-group-title" id="${phase}-phase-title">${meta.title}</h3>
-                  <p class="timeline-group-summary">${meta.summary}</p>
+                  <h3 class="timeline-group-title" id="${phase}-phase-title">${meta.title[currentLang] || meta.title}</h3>
+                  <p class="timeline-group-summary">${meta.summary[currentLang] || meta.summary}</p>
                   <span class="timeline-group-dates">${meta.dates}</span>
                 </div>
               </div>
@@ -649,30 +767,30 @@
       function renderReleasePlan(query = "") {
         const normalizedQuery = query.trim().toLocaleLowerCase("vi");
         const visibleRows = releasePlan.filter((row) =>
-          row.join(" ").toLocaleLowerCase("vi").includes(normalizedQuery)
+          row.map(cell => typeof cell === "object" ? (cell[currentLang] || cell.en) : cell).join(" ").toLocaleLowerCase(currentLang).includes(normalizedQuery)
         );
 
         releaseRows.innerHTML = visibleRows.map((row) => `
           <tr>
             <td><strong>${row[0]}</strong></td>
-            <td>${row[1]}</td>
-            <td>${row[2]}</td>
+            <td>${row[1][currentLang] || row[1]}</td>
+            <td>${row[2][currentLang] || row[2]}</td>
             <td><strong>${row[3]}</strong></td>
-            <td><code>${row[4]}</code></td>
-            <td><span class="status ${getStatusClass(row[5])}">${row[5]}</span></td>
+            <td><code>${row[4][currentLang] || row[4]}</code></td>
+            <td><span class="status ${getStatusClass(row[5][currentLang] || row[5])}">${row[5][currentLang] || row[5]}</span></td>
           </tr>
         `).join("");
 
         releaseCards.innerHTML = visibleRows.map((row) => `
           <article class="release-card">
             <div class="release-card-head">
-              <div><span class="sprint-number">${row[0]}</span><h3>${row[1]}</h3></div>
-              <span class="status ${getStatusClass(row[5])}">${row[5]}</span>
+              <div><span class="sprint-number">${row[0]}</span><h3>${row[1][currentLang] || row[1]}</h3></div>
+              <span class="status ${getStatusClass(row[5][currentLang] || row[5])}">${row[5][currentLang] || row[5]}</span>
             </div>
             <dl>
-              <dt>QA</dt><dd>${row[2]}</dd>
+              <dt>QA</dt><dd>${row[2][currentLang] || row[2]}</dd>
               <dt>Target live</dt><dd>${row[3]}</dd>
-              <dt>Cloudflare</dt><dd><code>${row[4]}</code></dd>
+              <dt>Cloudflare</dt><dd><code>${row[4][currentLang] || row[4]}</code></dd>
             </dl>
           </article>
         `).join("");
@@ -685,6 +803,7 @@
 
       renderSprints();
       renderReleasePlan();
+      setLanguage("en");
     </script>
   </body>
 </html>
