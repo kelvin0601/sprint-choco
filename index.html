@@ -222,35 +222,6 @@
       }
       .weekly-rhythm b { display: block; color: var(--choco); }
       .weekly-rhythm span { color: var(--muted); font-size: 13px; }
-      .table-wrap { overflow-x: auto; overflow-y: visible; border: 1px solid var(--line); border-radius: 18px; background: var(--white); }
-      table { width: 100%; border-collapse: collapse; min-width: 900px; }
-      th, td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-      th { color: var(--choco); background: #f9efe7; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
-      tr:last-child td { border-bottom: 0; }
-      td { font-size: 14px; }
-      .status { display: inline-flex; padding: 4px 8px; border-radius: 999px; font-size: 11px; font-weight: 900; white-space: nowrap; }
-      .status.build { color: var(--blue); background: var(--blue-bg); }
-      .status.qa { color: var(--amber); background: var(--amber-bg); }
-      .status.live { color: var(--green); background: var(--green-bg); }
-      .release-tools { display: grid; grid-template-columns: minmax(220px, 1fr) auto; gap: 12px; margin-bottom: 14px; }
-      .search {
-        width: 100%;
-        padding: 11px 14px;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        color: var(--ink);
-        background: var(--white);
-        outline: none;
-      }
-      .search:focus { border-color: var(--ruby); box-shadow: 0 0 0 3px rgba(228,32,130,.12); }
-      .release-count { align-self: center; color: var(--muted); font-size: 13px; white-space: nowrap; }
-      .release-cards { display: none; gap: 12px; }
-      .release-card { padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
-      .release-card-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-      .release-card dl { display: grid; grid-template-columns: 100px 1fr; gap: 7px 10px; margin: 14px 0 0; }
-      .release-card dt { color: var(--muted); font-size: 12px; }
-      .release-card dd { margin: 0; font-size: 13px; font-weight: 700; }
-      .empty { display: none; padding: 28px; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); background: var(--white); text-align: center; }
       .flow {
         position: relative;
         display: grid;
@@ -293,7 +264,6 @@
       }
       .flow-step b { display: block; margin-bottom: 7px; color: var(--white); font-size: 16px; }
       .flow-step span { display: block; max-width: 185px; color: rgba(255,255,255,.67); font-size: 13px; line-height: 1.55; }
-      .note { margin-top: 16px; padding: 16px 18px; border-left: 4px solid var(--ruby); border-radius: 0 12px 12px 0; background: var(--white); color: var(--muted); }
       .sources { display: flex; flex-wrap: wrap; gap: 9px; }
       .sources a { padding: 8px 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--brown); font-size: 13px; font-weight: 750; text-decoration: none; }
       footer { padding: 26px 0 40px; color: var(--muted); font-size: 13px; }
@@ -302,7 +272,6 @@
       .topbar-actions { display: flex; align-items: center; }
       .skip-link { position: fixed; left: 12px; top: -60px; z-index: 99; padding: 10px 14px; border-radius: 8px; color: var(--white); background: var(--choco); }
       .skip-link:focus { top: 12px; }
-      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
       @media (max-width: 880px) {
         .stats { grid-template-columns: 1fr 1fr; }
@@ -327,9 +296,6 @@
         .section-head { align-items: start; flex-direction: column; }
         .timeline-group-head { padding: 22px; }
         .timeline-group-head::after { right: 14px; font-size: 100px; }
-        .release-tools { grid-template-columns: 1fr; }
-        .table-wrap { display: none; }
-        .release-cards { display: grid; }
       }
       @media print {
         .topbar, .print { display: none; }
@@ -345,9 +311,9 @@
     <a class="skip-link" href="#timeline">Skip to timeline</a>
     <header class="hero">
       <div class="shell">
-        <span class="eyebrow">Migration roadmap · v3</span>
-        <h1>Webflow → Next.js, QA and gradual live rollout per page</h1>
-        <p>Homepage is built first. First two months to complete staging based on Webflow live at the start date of each page; next two months for user QA, delta sync and routing each page family via Cloudflare.</p>
+        <span class="eyebrow">Migration roadmap · v4</span>
+        <h1>Stabilize the codebase first, then QA and launch page by page</h1>
+        <p>The first 4 weeks are reserved for representative pages and codebase stabilization. From Week 5, each completed page family moves through QA and goes live as soon as it is approved, while development continues for the remaining pages.</p>
         <div class="hero-meta">
           <span class="pill">Start: Monday, Sep 21, 2026</span>
           <span class="pill">Target End: Friday, Jan 15, 2027</span>
@@ -362,7 +328,6 @@
         <nav aria-label="Document navigation">
           <a href="#assumptions">Assumptions</a>
           <a href="#timeline">Timeline</a>
-          <a href="#release">QA &amp; Live</a>
           <a href="#workflow">Release gate</a>
         </nav>
         <div class="topbar-actions">
@@ -382,13 +347,13 @@
           <div class="icon">!</div>
           <div>
             <strong>Sprint calculation</strong>
-            <p>Each sprint lasts 2 weeks. Every week has its own scope and output to review early next week.</p>
+            <p>The plan spans 17 weeks: 4 protected foundation weeks, followed by rolling delivery sprints and a final close-out week. Every week has its own reviewable output.</p>
           </div>
         </div>
         <div class="stats">
           <div class="stat"><b>17</b><span>Total weeks</span></div>
-          <div class="stat"><b>9</b><span>Weeks Phase 1 · Development</span></div>
-          <div class="stat"><b>8</b><span>Weeks Phase 2 · QA &amp; rollout</span></div>
+          <div class="stat"><b>4</b><span>Weeks Phase 1 · Foundation</span></div>
+          <div class="stat"><b>13</b><span>Weeks Phase 2 · Rolling delivery</span></div>
           <div class="stat"><b>1</b><span>Weekly review at start of each week</span></div>
         </div>
       </section>
@@ -410,53 +375,19 @@
         <div class="timeline-groups" id="sprint-list"></div>
       </section>
 
-      <section id="release">
-        <div class="section-head">
-          <div>
-            <h2>Phase 2: which pages QA and live in which sprint?</h2>
-            <p class="sub">Live date is target. If not passing all markets, the URL remains on Webflow and carries over to next sprint.</p>
-          </div>
-        </div>
-        <div class="release-tools">
-          <label>
-            <span class="sr-only">Search page or sprint</span>
-            <input class="search" id="release-search" type="search" placeholder="Search page, sprint or URL…" autocomplete="off" />
-          </label>
-          <span class="release-count" id="release-count" aria-live="polite"></span>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Sprint</th>
-                <th>Page family</th>
-                <th>QA window</th>
-                <th>Target live</th>
-                <th>Cloudflare scope</th>
-                <th>Target status</th>
-              </tr>
-            </thead>
-            <tbody id="release-rows"></tbody>
-          </table>
-        </div>
-        <div class="release-cards" id="release-cards"></div>
-        <div class="empty" id="release-empty">No matching pages found.</div>
-        <div class="note"><strong>Release principle:</strong> whichever page finishes latest sync, passes QA in all markets and is approved goes live in assigned sprint. Otherwise, it stays on Webflow and is handled next sprint.</div>
-      </section>
-
       <section id="workflow">
         <div class="section-head">
           <div>
             <h2>Mandatory gates per page</h2>
-            <p class="sub">A page family is routed only when all mandatory markets pass.</p>
+            <p class="sub">From Week 5, each completed page family follows this flow independently. Webflow remains primary until that page is approved and switched.</p>
           </div>
         </div>
         <div class="flow">
-          <div class="flow-step" data-step="01"><b>Latest sync</b><span>Compare Webflow live and update all deltas.</span></div>
-          <div class="flow-step" data-step="02"><b>User QA</b><span>Check SG, HK EN, HK ZH-Hant, UAE EN and UAE AR.</span></div>
-          <div class="flow-step" data-step="03"><b>Fix &amp; re-QA</b><span>Close blockers, critical issues and run regression.</span></div>
-          <div class="flow-step" data-step="04"><b>Cloudflare route</b><span>Move correct page family from Webflow to Next.</span></div>
-          <div class="flow-step" data-step="05"><b>Monitor</b><span>Monitor for 24 hours and rollback specific pages if needed.</span></div>
+          <div class="flow-step" data-step="01"><b>Dev complete</b><span>Page family is complete on Next/Sanity and ready for validation.</span></div>
+          <div class="flow-step" data-step="02"><b>Latest sync</b><span>Compare with Webflow live and update all content deltas before QA.</span></div>
+          <div class="flow-step" data-step="03"><b>QA &amp; re-QA</b><span>Test all required markets, close blockers and run regression.</span></div>
+          <div class="flow-step" data-step="04"><b>Approve &amp; switch</b><span>After sign-off, route only that approved page family to Next.</span></div>
+          <div class="flow-step" data-step="05"><b>Monitor &amp; own</b><span>Monitor for 24 hours; future updates for the switched page are managed in Sanity.</span></div>
         </div>
       </section>
 
@@ -470,109 +401,85 @@
       </section>
     </main>
 
-    <footer class="shell">Plan version 3 · Schedule in Asia/Ho_Chi_Minh · HK Simplified Chinese excluded from scope.</footer>
+    <footer class="shell">Plan version 4 · Schedule in Asia/Ho_Chi_Minh · HK Simplified Chinese excluded from scope.</footer>
 
     <script>
       const i18n = {
         vi: {
           skipLink: "Bỏ qua đến timeline",
-          heroTitle: "Webflow → Next.js, QA và live dần theo từng page",
-          heroDesc: "Homepage được làm trước. Hai tháng đầu hoàn thiện staging theo Webflow live tại ngày bắt đầu từng page; hai tháng sau user QA, đồng bộ delta và route từng page family qua Cloudflare.",
+          heroTitle: "Ổn định codebase trước, sau đó QA và live dần từng page",
+          heroDesc: "4 tuần đầu dành cho các page đại diện và ổn định codebase. Từ Tuần 5, page family nào hoàn thành sẽ được QA và live ngay khi approved, song song với việc tiếp tục phát triển các page còn lại.",
           heroStart: "Bắt đầu: Thứ Hai, 21/09/2026",
           heroEnd: "Kết thúc mục tiêu: Thứ Sáu, 15/01/2027",
           heroNoHK: "Không dùng HK Simplified Chinese",
           navAssumptions: "Giả định",
           navTimeline: "Timeline",
-          navRelease: "QA & Live",
           navWorkflow: "Release gate",
           assumptionsTitle: "Giả định lập kế hoạch",
           assumptionsSub: "Sprint chạy theo lịch làm việc bình thường từ Thứ Hai đến Thứ Sáu.",
           sprintCalcTitle: "Cách tính sprint",
-          sprintCalcDesc: "Mỗi sprint kéo dài 2 tuần. Từng tuần có scope và đầu ra riêng để review vào đầu tuần kế tiếp.",
+          sprintCalcDesc: "Kế hoạch kéo dài 17 tuần: 4 tuần foundation được bảo vệ, sau đó là các sprint delivery cuốn chiếu và 1 tuần close-out. Từng tuần có đầu ra cụ thể để review.",
           totalWeeks: "Tổng số tuần",
-          phase1Weeks: "Tuần Phase 1 · Development",
-          phase2Weeks: "Tuần Phase 2 · QA & rollout",
+          phase1Weeks: "Tuần Phase 1 · Foundation",
+          phase2Weeks: "Tuần Phase 2 · Rolling delivery",
           weeklyReviewStart: "Weekly review vào đầu mỗi tuần",
           timelineTitle: "Timeline 9 sprint",
           timelineSub: "Đa số các sprint gồm 2 tuần; từng tuần có scope cụ thể để review và report.",
           weeklyReviewH: "Weekly review vào đầu tuần",
           weeklyReviewP: "Tuần 1 dùng để kickoff; từ Tuần 2, mỗi sáng Thứ Hai review tuần trước đã làm được gì, demo staging, chốt carry-over/blocker và xác nhận scope tuần mới.",
-          releaseTitle: "Phase 2: page nào QA và live ở sprint nào?",
-          releaseSub: "Ngày live là target. Nếu chưa pass toàn bộ market, URL đó vẫn ở Webflow và carry-over sang sprint kế tiếp.",
-          searchPlaceholder: "Tìm page, sprint hoặc URL…",
-          thSprint: "Sprint",
-          thPageFamily: "Page family",
-          thQaWindow: "QA window",
-          thTargetLive: "Target live",
-          thCloudflare: "Cloudflare scope",
-          thStatus: "Trạng thái mục tiêu",
-          releaseEmpty: "Không tìm thấy page phù hợp.",
-          releaseNote: "<strong>Nguyên tắc release:</strong> page nào hoàn thành latest sync, pass QA tất cả market và được approved thì live ngay trong sprint được phân công. Nếu chưa pass thì giữ ở Webflow và tiếp tục xử lý ở sprint sau.",
           workflowTitle: "Gate bắt buộc cho từng page",
-          workflowSub: "Một page family chỉ được route khi tất cả market bắt buộc đã pass.",
-          wf1Title: "Latest sync",
-          wf1Desc: "Đối chiếu Webflow live và cập nhật toàn bộ delta.",
-          wf2Title: "User QA",
-          wf2Desc: "Kiểm tra SG, HK EN, HK ZH-Hant, UAE EN và UAE AR.",
-          wf3Title: "Fix & re-QA",
-          wf3Desc: "Đóng blocker, critical issue và chạy regression.",
-          wf4Title: "Cloudflare route",
-          wf4Desc: "Chuyển đúng page family từ Webflow sang Next.",
-          wf5Title: "Monitor",
-          wf5Desc: "Theo dõi 24 giờ và rollback riêng page khi cần.",
+          workflowSub: "Từ Tuần 5, mỗi page family đã hoàn thành đi qua flow này độc lập. Webflow vẫn là bản chính cho đến khi page đó được approved và switch.",
+          wf1Title: "Dev complete",
+          wf1Desc: "Page family đã hoàn thành trên Next/Sanity và sẵn sàng để kiểm tra.",
+          wf2Title: "Latest sync",
+          wf2Desc: "Đối chiếu Webflow live và cập nhật toàn bộ content delta trước QA.",
+          wf3Title: "QA & re-QA",
+          wf3Desc: "Kiểm tra tất cả market bắt buộc, đóng blocker và chạy regression.",
+          wf4Title: "Approve & switch",
+          wf4Desc: "Sau khi sign-off, chỉ route page family đã approved sang Next.",
+          wf5Title: "Monitor & own",
+          wf5Desc: "Theo dõi 24 giờ; các update tiếp theo của page đã switch được quản lý trên Sanity.",
           sourcesTitle: "Nguồn kiểm tra",
-          footerNote: "Plan version 3 · Lịch tính theo Asia/Ho_Chi_Minh · HK Simplified Chinese đã loại khỏi scope.",
+          footerNote: "Plan version 4 · Lịch tính theo Asia/Ho_Chi_Minh · HK Simplified Chinese đã loại khỏi scope.",
           btnPrint: "In / Xuất PDF",
           wordWeeks: "tuần"
         },
         en: {
           skipLink: "Skip to timeline",
-          heroTitle: "Webflow → Next.js, QA and gradual live rollout per page",
-          heroDesc: "Homepage is built first. First two months to complete staging based on Webflow live at the start date of each page; next two months for user QA, delta sync and routing each page family via Cloudflare.",
+          heroTitle: "Stabilize the codebase first, then QA and launch page by page",
+          heroDesc: "The first 4 weeks are reserved for representative pages and codebase stabilization. From Week 5, each completed page family moves through QA and goes live as soon as it is approved, while development continues for the remaining pages.",
           heroStart: "Start: Monday, Sep 21, 2026",
           heroEnd: "Target End: Friday, Jan 15, 2027",
           heroNoHK: "HK Simplified Chinese excluded",
           navAssumptions: "Assumptions",
           navTimeline: "Timeline",
-          navRelease: "QA & Live",
           navWorkflow: "Release gate",
           assumptionsTitle: "Planning Assumptions",
           assumptionsSub: "Sprints run on normal working days from Monday to Friday.",
           sprintCalcTitle: "Sprint calculation",
-          sprintCalcDesc: "Each sprint lasts 2 weeks. Every week has its own scope and output to review early next week.",
+          sprintCalcDesc: "The plan spans 17 weeks: 4 protected foundation weeks, followed by rolling delivery sprints and a final close-out week. Every week has its own reviewable output.",
           totalWeeks: "Total weeks",
-          phase1Weeks: "Weeks Phase 1 · Development",
-          phase2Weeks: "Weeks Phase 2 · QA & rollout",
+          phase1Weeks: "Weeks Phase 1 · Foundation",
+          phase2Weeks: "Weeks Phase 2 · Rolling delivery",
           weeklyReviewStart: "Weekly review at start of each week",
           timelineTitle: "9-sprint Timeline",
           timelineSub: "Most sprints have 2 weeks; each week has specific scope for review and reporting.",
           weeklyReviewH: "Weekly review early week",
           weeklyReviewP: "Week 1 for kickoff; from Week 2, every Monday morning review past week's work, demo staging, finalize carry-over/blocker and confirm new week scope.",
-          releaseTitle: "Phase 2: which pages QA and live in which sprint?",
-          releaseSub: "Live date is target. If not passing all markets, the URL remains on Webflow and carries over to next sprint.",
-          searchPlaceholder: "Search page, sprint or URL…",
-          thSprint: "Sprint",
-          thPageFamily: "Page family",
-          thQaWindow: "QA window",
-          thTargetLive: "Target live",
-          thCloudflare: "Cloudflare scope",
-          thStatus: "Target status",
-          releaseEmpty: "No matching pages found.",
-          releaseNote: "<strong>Release principle:</strong> whichever page finishes latest sync, passes QA in all markets and is approved goes live in assigned sprint. Otherwise, it stays on Webflow and is handled next sprint.",
           workflowTitle: "Mandatory gates per page",
-          workflowSub: "A page family is routed only when all mandatory markets pass.",
-          wf1Title: "Latest sync",
-          wf1Desc: "Compare Webflow live and update all deltas.",
-          wf2Title: "User QA",
-          wf2Desc: "Check SG, HK EN, HK ZH-Hant, UAE EN and UAE AR.",
-          wf3Title: "Fix & re-QA",
-          wf3Desc: "Close blockers, critical issues and run regression.",
-          wf4Title: "Cloudflare route",
-          wf4Desc: "Move correct page family from Webflow to Next.",
-          wf5Title: "Monitor",
-          wf5Desc: "Monitor for 24 hours and rollback specific pages if needed.",
+          workflowSub: "From Week 5, each completed page family follows this flow independently. Webflow remains primary until that page is approved and switched.",
+          wf1Title: "Dev complete",
+          wf1Desc: "Page family is complete on Next/Sanity and ready for validation.",
+          wf2Title: "Latest sync",
+          wf2Desc: "Compare with Webflow live and update all content deltas before QA.",
+          wf3Title: "QA & re-QA",
+          wf3Desc: "Test all required markets, close blockers and run regression.",
+          wf4Title: "Approve & switch",
+          wf4Desc: "After sign-off, route only that approved page family to Next.",
+          wf5Title: "Monitor & own",
+          wf5Desc: "Monitor for 24 hours; future updates for the switched page are managed in Sanity.",
           sourcesTitle: "Validation sources",
-          footerNote: "Plan version 3 · Schedule in Asia/Ho_Chi_Minh · HK Simplified Chinese excluded from scope.",
+          footerNote: "Plan version 4 · Schedule in Asia/Ho_Chi_Minh · HK Simplified Chinese excluded from scope.",
           btnPrint: "Print / Export PDF",
           wordWeeks: "weeks"
         }
@@ -594,134 +501,108 @@
         
         // Re-render JS parts
         renderSprints();
-        renderReleasePlan(document.querySelector("#release-search").value);
       }
     </script>
     <script>
       const sprints = [
         {
           no: 0, phase: "dev", dates: "21/09–25/09/2026",
-          title: "Kickoff & Setup",
-          description: "Sprint 0: Laying the foundation for the project.",
+          title: "Kickoff & technical foundation",
+          description: "Set the architecture and delivery foundations before committing to production page patterns.",
           weeks: [
-            { label: "Week 1", dates: "21/09–25/09", work: "Project setup, complete structure, global header/footer." }
+            { label: "Week 1", dates: "21/09–25/09", work: "Project setup, Next/Sanity architecture, environments, routing approach, global header/footer and initial component conventions." }
           ]
         },
         {
-          no: 1, phase: "dev", dates: "28/09–09/10/2026",
-          title: "Homepage all markets",
-          description: "Capture Webflow live on start date and complete Homepage on staging.",
+          no: 1, phase: "dev", dates: "28/09–16/10/2026",
+          title: "Representative pages & codebase stabilization",
+          description: "Use Homepage and core content pages to validate reusable patterns before rolling QA begins. Production remains on Webflow throughout this phase.",
           weeks: [
-            { label: "Week 2", dates: "28/09–02/10", work: "Capture Homepage Webflow live and complete Homepage SG." },
-            { label: "Week 3", dates: "05/10–09/10", work: "Complete Homepage HK/UAE, localization, Arabic RTL, responsive and staging review." }
+            { label: "Week 2", dates: "28/09–02/10", work: "Build Homepage SG and establish reusable sections, CMS schemas, preview and content-loading patterns." },
+            { label: "Week 3", dates: "05/10–09/10", work: "Extend Homepage to HK/UAE; validate localization, Arabic RTL, responsive, SEO and analytics patterns." },
+            { label: "Week 4", dates: "12/10–16/10", work: "Build About Us and Contact Us as representative template pages; refactor shared components and complete the codebase foundation checkpoint." }
           ]
         },
         {
-          no: 2, phase: "dev", dates: "12/10–23/10/2026",
-          title: "Page Template and core pages",
-          description: "Build reusable templates then apply for About Us, How It Works, Contact Us and FAQs. Baseline based on start date of each page.",
+          no: 2, phase: "qa", dates: "19/10–30/10/2026",
+          title: "First rolling QA & live",
+          description: "Start the page-by-page delivery loop after the foundation checkpoint; continue building the next core pages in parallel.",
           weeks: [
-            { label: "Week 4", dates: "12/10–16/10", work: "Build reusable Page Template; apply for About Us and Contact Us on all applicable markets." },
-            { label: "Week 5", dates: "19/10–23/10", work: "Complete How It Works and FAQs; check deep links, forms and localized content." }
+            { label: "Week 5", dates: "19/10–23/10", work: "Latest sync and user QA Homepage across all markets; fix, regress and live when approved. Continue About Us and Contact Us." },
+            { label: "Week 6", dates: "26/10–30/10", work: "QA/fix and live About Us and Contact Us when approved; build How It Works and FAQs using stabilized patterns." }
           ]
         },
         {
-          no: 3, phase: "dev", dates: "26/10–06/11/2026",
-          title: "Content and product pages",
-          description: "Blog, Blog Detail, Author, Visa Card, Boost with USD, USD Waitlist, FX Guarantee Fee, Media and Customer Stories.",
+          no: 3, phase: "qa", dates: "02/11–13/11/2026",
+          title: "Core pages rollout & Blog build",
+          description: "QA and release the remaining core pages while the Blog family is developed in parallel.",
           weeks: [
-            { label: "Week 6", dates: "26/10–30/10", work: "Complete Blog listing, Blog detail, Author and content migration structure." },
-            { label: "Week 7", dates: "02/11–06/11", work: "Complete Visa, Boost USD, USD Waitlist, FX Fee, Media and Customer Stories." }
+            { label: "Week 7", dates: "02/11–06/11", work: "Latest sync, QA/fix and live How It Works when approved; build Blog listing, detail and Author structure." },
+            { label: "Week 8", dates: "09/11–13/11", work: "QA/fix and live FAQs when approved; complete Blog content migration, localization and staging review." }
           ]
         },
         {
-          no: 4, phase: "dev", dates: "09/11–20/11/2026",
-          title: "Long-tail and staging completion",
-          description: "Legal, campaign, documents, press statement, content migration, SEO, accessibility and full staging regression.",
+          no: 4, phase: "qa", dates: "16/11–27/11/2026",
+          title: "Blog rollout & product build",
+          description: "Release the Blog family after approval while product page families move through development and staging review.",
           weeks: [
-            { label: "Week 8", dates: "09/11–13/11", work: "Complete Legal, campaign, documents and Press Statement based on Webflow live." },
-            { label: "Week 9", dates: "16/11–20/11", work: "Content migration, SEO, accessibility, full staging regression and sign off feature complete." }
+            { label: "Week 9", dates: "16/11–20/11", work: "Latest sync and user QA Blog, Blog Detail and Author; fix and regression across markets." },
+            { label: "Week 10", dates: "23/11–27/11", work: "Live Blog family when approved; build Visa Card, Boost USD, USD Waitlist and FX Guarantee Fee." }
           ]
         },
         {
-          no: 5, phase: "qa", dates: "23/11–04/12/2026",
-          title: "QA & live: Homepage, About Us",
-          description: "Sync latest Webflow, user QA all markets, fix and route Homepage first; About Us live after passing same gates.",
+          no: 5, phase: "qa", dates: "30/11–11/12/2026",
+          title: "Product rollout & media build",
+          description: "QA and release approved product pages while Media, Customer Stories and Press are built in parallel.",
           weeks: [
-            { label: "Week 10", dates: "23/11–27/11", work: "Sync Homepage with latest Webflow; user QA all markets, fix and regression." },
-            { label: "Week 11", dates: "30/11–04/12", work: "Live Homepage; QA/fix About Us and live after approved." }
+            { label: "Week 11", dates: "30/11–04/12", work: "Latest sync and user QA product page families; fix, regression and approval by market." },
+            { label: "Week 12", dates: "07/12–11/12", work: "Live approved product pages; build Media, Customer Stories and Press Statement." }
           ]
         },
         {
-          no: 6, phase: "qa", dates: "07/12–18/12/2026",
-          title: "QA & live: Core pages",
-          description: "Contact Us, FAQs and How It Works go through latest sync, QA, fix, sign-off and Cloudflare routing respectively.",
+          no: 6, phase: "qa", dates: "14/12–25/12/2026",
+          title: "Media rollout & long-tail build",
+          description: "Release media page families while legal, campaign and document pages are completed using the stabilized codebase.",
           weeks: [
-            { label: "Week 12", dates: "07/12–11/12", work: "QA/fix Contact Us and live; start latest sync and QA FAQs." },
-            { label: "Week 13", dates: "14/12–18/12", work: "Live FAQs; QA/fix How It Works and route to Next after approval." }
+            { label: "Week 13", dates: "14/12–18/12", work: "Latest sync, QA/fix and live Media, Customer Stories and Press when approved." },
+            { label: "Week 14", dates: "21/12–25/12", work: "Build and staging-review Legal, campaign and document pages; continue any carry-over fixes." }
           ]
         },
         {
-          no: 7, phase: "qa", dates: "21/12/2026–01/01/2027",
-          title: "QA & live: Blog, product and media",
-          description: "QA and live Blog/Author, product pages, Media and Customer Stories respectively as soon as each page family is approved.",
+          no: 7, phase: "qa", dates: "28/12/2026–08/01/2027",
+          title: "Long-tail rollout & carry-over",
+          description: "QA and release long-tail pages, then use remaining capacity for pages carried over from earlier sprints.",
           weeks: [
-            { label: "Week 14", dates: "21/12–25/12", work: "QA/fix and live Blog, Blog Detail, Author; continue QA product pages." },
-            { label: "Week 15", dates: "28/12–01/01", work: "Live product pages; QA/fix and live Media, Customer Stories, Press." }
+            { label: "Week 15", dates: "28/12–01/01", work: "Latest sync and user QA Legal, campaigns and documents across applicable markets." },
+            { label: "Week 16", dates: "04/01–08/01", work: "Live approved long-tail pages; resolve carry-over, regression and routing issues." }
           ]
         },
         {
-          no: 8, phase: "qa", dates: "04/01–15/01/2027",
-          title: "Long-tail, carry-over and handover",
-          description: "QA and live legal/campaign/documents, handle carry-over pages and audit all routing.",
+          no: 8, phase: "qa", dates: "11/01–15/01/2027",
+          title: "Final audit & handover",
+          description: "Close remaining approved carry-over, audit production routing and hand over the stabilized platform.",
           weeks: [
-            { label: "Week 16", dates: "04/01–08/01", work: "Latest sync and user QA Legal, campaigns, documents; handle remaining carry-over." },
-            { label: "Week 17", dates: "11/01–15/01", work: "Live long-tail pages, audit Cloudflare/SEO/analytics and complete handover." }
+            { label: "Week 17", dates: "11/01–15/01", work: "Final carry-over decisions, Cloudflare/SEO/analytics audit, documentation and handover." }
           ]
         }
-      ];
-
-      const releasePlan = [
-        ["S5", "Homepage · all markets", "23–30/11", "01/12", "/, /hk-en, /hk-zh-hant, /ae-en, /ae-ar", "Live on Next"],
-        ["S5", "About Us · all applicable markets", "30/11–04/12", "04/12", "*/about-us", "Live if approved"],
-        ["S6", "Contact Us", "07–09/12", "09/12", "*/contact-us", "Live on Next"],
-        ["S6", "FAQs", "09–14/12", "14/12", "*/faqs", "Live on Next"],
-        ["S6", "How It Works", "14–17/12", "17/12", "*/how-it-works", "Live on Next"],
-        ["S7", "Blog, Blog Detail, Author", "21–23/12", "23/12", "*/blog, */blogs/*, */author/*", "Live on Next"],
-        ["S7", "Visa Card, Boost USD, USD Waitlist, FX Fee", "21–29/12", "29/12", "Approved product routes", "Live on Next"],
-        ["S7", "Media, Customer Stories, Press", "24–31/12", "31/12", "Media/customer routes", "Live on Next"],
-        ["S8", "Legal, campaigns, documents", "04–13/01", "13/01", "/terms-and-policy/*, /documents/*, campaign URLs", "Live on Next"],
-        ["S8", "Carry-over and audit", "14–15/01", "Khi approved", "Only passed URLs", "Close-out"]
       ];
 
       const phaseMeta = {
         dev: {
           label: "Phase 1",
-          title: "Complete entire website on Next staging",
-          summary: "Build Homepage first, then complete Page Template and all remaining pages. Each page follows Webflow live at start date, includes all applicable markets and keeps production routing unchanged.",
-          dates: "21/09–20/11/2026 · Sprint 1–4"
+          title: "Protected foundation & codebase stabilization",
+          summary: "Spend the first 4 weeks building representative pages, validating shared patterns and stabilizing the Next/Sanity codebase. No production page is switched during this phase; Webflow remains the source of truth.",
+          dates: "21/09–16/10/2026 · Weeks 1–4"
         },
         qa: {
           label: "Phase 2",
-          title: "User QA, latest sync and gradual live",
-          summary: "Compare with latest Webflow production, user QA per page family, fix and regression. Any approved page will be routed via Cloudflare to Next immediately; non-passed pages keep running Webflow.",
-          dates: "23/11/2026–15/01/2027 · Sprint 5–8"
+          title: "Rolling build, QA & page-by-page live",
+          summary: "From Week 5, completed page families enter latest sync and user QA while development continues on the next pages. Each approved page is routed to Next immediately; any page that has not passed stays on Webflow.",
+          dates: "19/10/2026–15/01/2027 · Weeks 5–17"
         }
       };
 
       const sprintList = document.querySelector("#sprint-list");
-      const releaseRows = document.querySelector("#release-rows");
-      const releaseCards = document.querySelector("#release-cards");
-      const releaseSearch = document.querySelector("#release-search");
-      const releaseCount = document.querySelector("#release-count");
-      const releaseEmpty = document.querySelector("#release-empty");
-
-      function getStatusClass(status) {
-        const s = status;
-        if (s.includes("Live")) return "live";
-        if (s.includes("QA")) return "qa";
-        return "build";
-      }
 
       function renderSprintCard(sprint) {
         return `
@@ -765,45 +646,7 @@
         }).join("");
       }
 
-      function renderReleasePlan(query = "") {
-        const normalizedQuery = query.trim().toLocaleLowerCase();
-        const visibleRows = releasePlan.filter((row) =>
-          row.join(" ").toLocaleLowerCase().includes(normalizedQuery)
-        );
-
-        releaseRows.innerHTML = visibleRows.map((row) => `
-          <tr>
-            <td><strong>${row[0]}</strong></td>
-            <td>${row[1]}</td>
-            <td>${row[2]}</td>
-            <td><strong>${row[3]}</strong></td>
-            <td><code>${row[4]}</code></td>
-            <td><span class="status ${getStatusClass(row[5])}">${row[5]}</span></td>
-          </tr>
-        `).join("");
-
-        releaseCards.innerHTML = visibleRows.map((row) => `
-          <article class="release-card">
-            <div class="release-card-head">
-               <div><span class="sprint-number">${row[0]}</span><h3>${row[1]}</h3></div>
-               <span class="status ${getStatusClass(row[5])}">${row[5]}</span>
-            </div>
-            <dl>
-              <dt>QA</dt><dd>${row[2]}</dd>
-              <dt>Target live</dt><dd>${row[3]}</dd>
-              <dt>Cloudflare</dt><dd><code>${row[4]}</code></dd>
-            </dl>
-          </article>
-        `).join("");
-
-        releaseCount.textContent = `${visibleRows.length}/${releasePlan.length} page groups`;
-        releaseEmpty.style.display = visibleRows.length ? "none" : "block";
-      }
-
-      releaseSearch.addEventListener("input", (event) => renderReleasePlan(event.target.value));
-
       renderSprints();
-      renderReleasePlan();
       
     </script>
   </body>
